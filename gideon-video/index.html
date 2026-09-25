@@ -1,0 +1,709 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>GIDEON Launch Film</title>
+<style>
+@font-face{font-family:'Space Grotesk';font-weight:400;src:url(assets/fonts/space-grotesk-latin-400-normal.woff2)}
+@font-face{font-family:'Space Grotesk';font-weight:500;src:url(assets/fonts/space-grotesk-latin-500-normal.woff2)}
+@font-face{font-family:'Space Grotesk';font-weight:600;src:url(assets/fonts/space-grotesk-latin-600-normal.woff2)}
+@font-face{font-family:'Space Grotesk';font-weight:700;src:url(assets/fonts/space-grotesk-latin-700-normal.woff2)}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;src:url(assets/fonts/ibm-plex-sans-latin-400-normal.woff2)}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;src:url(assets/fonts/ibm-plex-sans-latin-500-normal.woff2)}
+@font-face{font-family:'IBM Plex Sans';font-weight:600;src:url(assets/fonts/ibm-plex-sans-latin-600-normal.woff2)}
+@font-face{font-family:'JetBrains Mono';font-weight:400;src:url(assets/fonts/jetbrains-mono-latin-400-normal.woff2)}
+@font-face{font-family:'JetBrains Mono';font-weight:500;src:url(assets/fonts/jetbrains-mono-latin-500-normal.woff2)}
+@font-face{font-family:'JetBrains Mono';font-weight:600;src:url(assets/fonts/jetbrains-mono-latin-600-normal.woff2)}
+@font-face{font-family:'JetBrains Mono';font-weight:700;src:url(assets/fonts/jetbrains-mono-latin-700-normal.woff2)}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:'IBM Plex Sans',sans-serif;color:#E6EAE7;-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;overflow:hidden;visibility:hidden;perspective:2200px;transform-origin:50% 50%}
+.a{position:absolute;left:50%;top:50%;transform-style:preserve-3d}
+.mono{font-family:'JetBrains Mono',monospace}
+.h{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.035em;line-height:1.04;white-space:nowrap}
+.w{display:inline-block;white-space:pre}
+.it{color:#3FD68F}
+.cursor{width:40px;height:40px}
+.kick{font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.26em;color:#3FD68F;white-space:nowrap}
+.dot{width:10px;height:10px;background:#3FD68F;border-radius:50%;display:inline-block;box-shadow:0 0 12px #3FD68F;vertical-align:middle}
+.para{font-size:28px;line-height:1.5;color:#94A09A;width:640px}
+
+/* logo */
+.lgm{display:grid;place-items:center}
+.lgm svg{position:absolute;inset:0}
+.lgm-g{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#3FD68F;line-height:1;position:relative}
+.lgw{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:.16em;white-space:nowrap;color:#E6EAE7;line-height:1}
+.lgw .ch{display:inline-block;text-align:center}
+
+/* terminal */
+.term{width:1440px;background:#0B0E0C;border:1px solid rgba(255,255,255,.1);box-shadow:0 60px 120px -40px rgba(0,0,0,.9)}
+.term-h{height:62px;display:flex;align-items:center;gap:12px;padding:0 26px;border-bottom:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:19px;color:#5C6662;letter-spacing:.06em}
+.term-h i{width:14px;height:14px;border-radius:50%;background:#2A302C}
+.term-h span{margin-left:14px}
+.term-h b{margin-left:auto;color:#3FD68F;font-weight:600;letter-spacing:.14em;font-size:17px}
+.term-h b .dot{width:9px;height:9px}
+.term-b{padding:26px 34px 30px;font-family:'JetBrains Mono',monospace;font-size:27px;line-height:1.9;white-space:pre;height:470px}
+.ln .tm{color:#5C6662}.ln .tg{color:#3FD68F;font-weight:700}.ln .dm{color:#7C8781}.ln .am{color:#E0B25C;font-weight:600}.ln .rd{color:#F0605D}
+.caret{display:inline-block;width:13px;height:28px;background:#3FD68F;vertical-align:-5px;margin-left:4px}
+
+/* flow */
+.lk{fill:none;stroke:rgba(63,214,143,.45);stroke-width:2.5;stroke-dasharray:1 1}
+.lk.ex{stroke:rgba(63,214,143,.7);stroke-width:3.5}
+.node{background:#0E1210;border:1px solid rgba(255,255,255,.1);white-space:nowrap}
+.src{display:flex;align-items:center;gap:16px;padding:16px 26px 16px 16px;font-size:27px;font-weight:500;width:250px}
+.src i{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(63,214,143,.5);color:#3FD68F;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:600}
+.gate,.cme{width:340px;padding:28px 30px}
+.gate{border-color:#3FD68F}
+.gh{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;gap:14px}
+.lgs{width:44px;height:44px;border:1.5px solid #3FD68F;color:#3FD68F;display:grid;place-items:center;font-size:26px;font-weight:700}
+.gk{font-family:'JetBrains Mono',monospace;font-size:17px;letter-spacing:.2em;color:#3FD68F;margin:14px 0 12px}
+.cme .gk{letter-spacing:.08em;font-size:16px}
+.gc{font-family:'JetBrains Mono',monospace;font-size:19px;color:#94A09A;line-height:1.75;display:flex;justify-content:space-between}
+.gc b{color:#3FD68F}
+.pk{width:18px;height:18px;border-radius:50%}
+.burst{width:90px;height:90px;border-radius:50%;border:3px solid #F0605D}
+.blk{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:600;letter-spacing:.1em;color:#F0605D;background:rgba(240,96,93,.12);border:1px solid rgba(240,96,93,.6);padding:10px 18px;white-space:nowrap}
+.stepl{text-align:center;white-space:nowrap}
+.stepl div{font-family:'JetBrains Mono',monospace;font-size:21px;letter-spacing:.2em;color:#3FD68F}
+.stepl span{display:block;margin-top:10px;font-size:26px;color:#94A09A}
+
+/* kill switch */
+.track{width:1365px;height:4px;background:rgba(255,255,255,.1)}
+.track i{display:block;height:100%;width:0}
+.tier{width:420px;height:380px;padding:36px 34px;border:1.5px solid rgba(255,255,255,.1);display:flex;flex-direction:column}
+.tn{font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.24em}
+.tt{font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:600;letter-spacing:-.03em;margin-top:26px;line-height:1.02}
+.td{font-size:26px;color:#94A09A;margin-top:16px;line-height:1.4}
+.ts{margin-top:auto;font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;letter-spacing:.24em}
+
+/* audit */
+.stack{width:860px;background:#0B0E0C;border:1px solid rgba(255,255,255,.1);padding:10px 0 14px;box-shadow:0 60px 120px -40px rgba(0,0,0,.9)}
+.sh{font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:.2em;color:#3FD68F;padding:16px 28px 18px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:6px}
+.sh span{color:#5C6662}
+.rec{display:flex;align-items:center;gap:18px;height:76px;padding:0 28px;font-family:'JetBrains Mono',monospace;font-size:21px;white-space:nowrap;border-left:3px solid transparent}
+.rec.on{border-left-color:#3FD68F;background:rgba(63,214,143,.05)}
+.rec .id{color:#5C6662}
+.rec b{color:#3FD68F;width:92px}
+.rec .tx{color:#C9D2CD;flex:1;overflow:hidden}
+.seal{display:flex;align-items:center;gap:8px;color:#3FD68F;font-weight:600;font-size:16px;letter-spacing:.14em;border:1px solid rgba(63,214,143,.5);padding:6px 10px}
+.file{width:270px;padding:24px 24px 22px;background:#0E1210;border:1px solid rgba(63,214,143,.45);box-shadow:0 30px 60px -20px rgba(0,0,0,.8)}
+.fx{font-family:'Space Grotesk',sans-serif;font-size:50px;font-weight:700;color:#3FD68F;letter-spacing:-.02em}
+.fn{font-family:'JetBrains Mono',monospace;font-size:17px;color:#94A09A;margin-top:6px}
+.fb{height:5px;background:rgba(255,255,255,.08);margin-top:18px}
+.fb i{display:block;height:100%;background:#3FD68F;width:0}
+.fs{font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.18em;margin-top:10px;font-weight:600}
+
+/* browser */
+.browser{width:1120px;height:730px;background:#0A0C0B;border:1px solid rgba(255,255,255,.14);box-shadow:0 80px 140px -40px rgba(0,0,0,.95),0 0 80px -20px rgba(63,214,143,.18);overflow:hidden}
+.bh{height:52px;background:#141917;display:flex;align-items:center;gap:10px;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.bh i{width:13px;height:13px;border-radius:50%;background:#2A302C}
+.url{margin:0 auto;display:flex;align-items:center;gap:10px;background:#0A0C0B;border:1px solid rgba(255,255,255,.08);padding:6px 70px;font-family:'JetBrains Mono',monospace;font-size:18px;color:#C9D2CD;transform:translateX(-30px)}
+.url svg{width:16px;height:16px}
+.bv{height:678px;overflow:hidden}
+.bv img{width:1120px;display:block}
+.gp{display:flex;align-items:center;gap:12px;background:#0E1210;border:1px solid rgba(63,214,143,.4);padding:14px 20px;font-size:22px;font-weight:500;white-space:nowrap;box-shadow:0 20px 40px -14px rgba(0,0,0,.8)}
+.gp i{width:10px;height:10px;background:#3FD68F;box-shadow:0 0 10px #3FD68F}
+
+/* compliance */
+.ctile{width:420px;height:200px;padding:28px 30px;background:#0E1210;border:1px solid rgba(255,255,255,.1)}
+.ck{font-family:'JetBrains Mono',monospace;font-size:24px;letter-spacing:.14em;color:#3FD68F;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.ck b{width:40px;height:40px;background:#3FD68F;color:#0A0C0B;display:grid;place-items:center;font-size:24px}
+.cx{font-size:25px;color:#94A09A;margin-top:18px;line-height:1.4}
+.isnot{width:720px;padding:30px 36px;border:1px solid rgba(240,96,93,.3);background:rgba(240,96,93,.04)}
+.nh{font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:.2em;color:#F0605D;font-weight:600;margin-bottom:14px}
+.ni{display:flex;align-items:center;gap:20px;font-size:32px;padding:12px 0;position:relative;white-space:nowrap}
+.ni b{color:#F0605D;font-size:26px;width:28px;display:inline-block}
+.ni span{position:relative;color:#C9D2CD}
+.ni span::after{content:"";position:absolute;left:0;top:54%;height:2px;background:#F0605D;width:var(--st,0%)}
+
+/* proof */
+.big{font-family:'Space Grotesk',sans-serif;font-size:380px;font-weight:700;letter-spacing:-.06em;color:#0A0C0B;line-height:1}
+.gstat{text-align:center;color:#0A0C0B;width:540px}
+.gstat strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:96px;font-weight:700;letter-spacing:-.04em;line-height:1.1;white-space:nowrap}
+.gstat small{display:block;font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.16em;margin-top:10px;font-weight:600;opacity:.7}
+
+/* outro */
+.cta{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:600;letter-spacing:.12em;color:#0A0C0B;background:#3FD68F;padding:28px 52px;white-space:nowrap;box-shadow:0 0 60px -10px rgba(63,214,143,.6)}
+.fine{width:1500px;text-align:center;font-size:16px;line-height:1.55;color:#5C6662}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+// ---------------------------------------------------------------------------
+// Tiny deterministic motion engine: every frame is a pure function of time t.
+// ---------------------------------------------------------------------------
+const E = {
+  lin: x => x,
+  outCubic: x => 1 - Math.pow(1 - x, 3),
+  inCubic: x => x * x * x,
+  inOutCubic: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+  outExpo: x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x),
+  inExpo: x => x <= 0 ? 0 : Math.pow(2, 10 * x - 10),
+  inOutExpo: x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2,
+  outQuint: x => 1 - Math.pow(1 - x, 5),
+  outBack: x => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
+  spring: x => x >= 1 ? 1 : 1 - Math.exp(-6.5 * x) * Math.cos(11 * x),
+};
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+// ramp from a to b between t0 and t1
+const r = (t, t0, t1, a, b, e = E.outExpo) => t <= t0 ? a : t >= t1 ? b : a + (b - a) * e((t - t0) / (t1 - t0));
+const p01 = (t, t0, t1, e = E.lin) => r(t, t0, t1, 0, 1, e);
+
+const $stage = document.getElementById('stage');
+function el(tag, cls, parent, html) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  (parent || $stage).appendChild(e);
+  return e;
+}
+// centred absolute element
+function A(parent, cls, html) { return el('div', 'a ' + (cls || ''), parent, html); }
+function img(parent, src, cls) { const i = el('img', cls, parent); i.src = src; return i; }
+function win(parent, src, w, h, pos) {
+  const d = A(parent, 'win'); d.style.width = w + 'px'; d.style.height = h + 'px';
+  const i = img(d, src); if (pos) i.style.objectPosition = pos; return d;
+}
+// Words wrapped in *...* are set in the italic serif.
+function words(parent, text, cls, style) {
+  const d = A(parent, 'h ' + (cls || ''));
+  if (style) Object.assign(d.style, style);
+  let italic = false;
+  text.split(' ').forEach((w, i, arr) => {
+    let s = w;
+    const start = s.startsWith('*'); if (start) { italic = true; s = s.slice(1); }
+    const end = s.endsWith('*'); if (end) s = s.slice(0, -1);
+    const sp = el('span', 'w' + (italic ? ' it' : ''), d, s + (i < arr.length - 1 ? ' ' : ''));
+    if (end) italic = false;
+  });
+  d._w = [...d.querySelectorAll('.w')];
+  return d;
+}
+function set(e, p) {
+  let tr = e._anchor === 'left' ? 'translate(0,-50%)' : 'translate(-50%,-50%)';
+  tr += ` translate3d(${(p.x || 0).toFixed(2)}px,${(p.y || 0).toFixed(2)}px,${(p.z || 0).toFixed(2)}px)`;
+  if (p.rx) tr += ` rotateX(${p.rx}deg)`;
+  if (p.ry) tr += ` rotateY(${p.ry}deg)`;
+  if (p.r) tr += ` rotate(${p.r}deg)`;
+  tr += ` scale(${p.s === undefined ? 1 : p.s})`;
+  e.style.transform = tr;
+  e.style.opacity = p.o === undefined ? 1 : clamp(p.o);
+  const f = [];
+  if (p.blur > 0.05) f.push(`blur(${p.blur.toFixed(2)}px)`);
+  if (p.bright !== undefined) f.push(`brightness(${p.bright})`);
+  e.style.filter = f.length ? f.join(' ') : 'none';
+}
+function left(e) { e._anchor = 'left'; e.style.left = '50%'; return e; }
+// staggered word rise with blur
+function rise(d, t, t0, stagger = 0.055, dur = 0.8, dist = 70) {
+  d._w.forEach((w, i) => {
+    const p = clamp((t - t0 - i * stagger) / dur);
+    const e = E.outExpo(p);
+    w.style.transform = `translateY(${((1 - e) * dist).toFixed(2)}px)`;
+    w.style.opacity = clamp(p * 3);
+    w.style.filter = p < 1 ? `blur(${((1 - e) * 12).toFixed(2)}px)` : 'none';
+  });
+}
+const pop = (t, t0, dur = 0.7) => r(t, t0, t0 + dur, 0, 1, E.spring);
+const visible = (t, t0) => t >= t0 ? 1 : 0;
+
+const CHECK = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const CURSOR = c => `<svg class="cursor" viewBox="0 0 24 24"><path d="M4 2.5l15.5 9.2-6.6 1.6-3.4 6.2z" fill="${c}" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+const ICON = {
+  agent: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 13h.01M15 13h.01"/></svg>',
+  task: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  mic: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>',
+  cal: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>',
+  bolt: '<svg viewBox="0 0 100 100"><polygon points="45.7,0 65.4,0 51.9,15.4 78.4,15.4 51.9,45.7 78.4,45.7 19.8,100 46.3,57.4 19.1,57.4 46.3,27.8 19.1,27.2" fill="#fff"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  tool: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7z"/></svg>',
+};
+function pill(parent, label, color, icon) {
+  return A(parent, 'pill', `<i style="background:${color}">${ICON[icon]}</i>${label}`);
+}
+function scene(bg, dark) {
+  const s = el('div', 'scene' + (dark ? ' dark' : ''));
+  s.style.background = bg; return s;
+}
+
+// ---------------------------------------------------------------------------
+// Timeline (120 BPM → one beat = 0.5s). Scene boundaries land on bar lines.
+// ---------------------------------------------------------------------------
+const SCENES = [];
+function addScene(start, end, build, update) {
+  SCENES.push({ start, end, ctx: build(), update });
+}
+const DURATION = 48;
+const G = '#3FD68F', AMB = '#E0B25C', ORG = '#EA8A4E', RED = '#F0605D', FG = '#E6EAE7', DIM = '#94A09A', DIM2 = '#5C6662';
+const GRID = 'linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/64px 64px, linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/64px 64px';
+const bg = (x = 50, y = 40, glow = 0.10) => `${GRID}, radial-gradient(ellipse at ${x}% ${y}%, rgba(63,214,143,${glow}), transparent 55%), #0A0C0B`;
+
+// deterministic pseudo-random in [0,1) from two integers
+function hash(a, b) {
+  let h = Math.imul(a * 374761393 + b * 668265263, 1274126177);
+  h ^= h >>> 13; h = Math.imul(h, 1103515245); h ^= h >>> 16;
+  return (h >>> 0) / 4294967296;
+}
+const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&*/<>=+';
+// monospace "decode" effect: revealed chars, a few scrambling chars, then padding
+function decode(text, t, t0, dur) {
+  const n = text.length, p = (t - t0) / dur * n;
+  let out = '';
+  for (let i = 0; i < n; i++) {
+    const c = text[i];
+    if (c === ' ' || i < p) out += c === ' ' ? ' ' : c;
+    else if (i < p + 4) out += GLYPHS[Math.floor(hash(i, Math.floor(t * 30)) * GLYPHS.length)];
+    else out += ' ';
+  }
+  return out;
+}
+// per-character spans for proportional text so scrambling never reflows
+function charBox(parent, text, cls, style) {
+  const d = A(parent, cls);
+  if (style) Object.assign(d.style, style);
+  d._c = [...text].map(ch => { const s = el('span', 'ch', d, ch); s._ch = ch; return s; });
+  return d;
+}
+function scrambleChars(d, t, t0, stagger = 0.08, spin = 0.28) {
+  if (!d._fixed) { d._c.forEach(s => { s.style.width = s.getBoundingClientRect().width + 'px'; }); d._fixed = true; }
+  d._c.forEach((s, i) => {
+    const ti = t0 + i * stagger;
+    if (t < ti) { s.textContent = s._ch; s.style.opacity = 0; return; }
+    s.style.opacity = 1;
+    s.textContent = t < ti + spin && s._ch !== ' ' ? GLYPHS[Math.floor(hash(i + 7, Math.floor(t * 30)) * GLYPHS.length)] : s._ch;
+    s.style.color = t < ti + spin ? G : '';
+  });
+}
+function logoMark(parent, size) {
+  const d = A(parent, 'lgm');
+  d.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 100 100" style="display:block;overflow:visible"><rect x="1.5" y="1.5" width="97" height="97" fill="rgba(63,214,143,.06)" stroke="${G}" stroke-width="3" pathLength="1" stroke-dasharray="1 1"/></svg><div class="lgm-g" style="font-size:${size * 0.55}px">G</div>`;
+  d.style.width = d.style.height = size + 'px';
+  d._rect = d.querySelector('rect'); d._g = d.querySelector('.lgm-g');
+  return d;
+}
+function drawMark(d, p, gp) {
+  d._rect.setAttribute('stroke-dashoffset', (1 - clamp(p)).toFixed(4));
+  d._rect.setAttribute('fill', `rgba(63,214,143,${(0.06 * clamp(p * 2 - 1)).toFixed(3)})`);
+  d._g.style.opacity = clamp(gp);
+  d._g.style.transform = `scale(${(0.6 + 0.4 * E.spring(clamp(gp))).toFixed(4)})`;
+}
+function kicker(parent, text) { return A(parent, 'kick', text); }
+const LOCK = c => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 018 0v3"/></svg>`;
+
+// ============ S1 — Cold open: noise → precision =============================
+addScene(0, 4, () => {
+  const s = scene(bg(50, 50, 0.04), true);
+  const cv = A(s); const c = el('canvas', '', cv); c.width = 1920; c.height = 1080;
+  const N = 1700;
+  const pts = [...Array(N)].map((_, i) => ({
+    x: hash(i, 1) * 2100 - 1050, y: hash(i, 2) * 1180 - 590, w: 4 + hash(i, 3) * 22,
+    sp: 20 + hash(i, 4) * 140, ph: hash(i, 5) * 6.28, col: hash(i, 6) < 0.12 ? RED : hash(i, 6) < 0.2 ? G : '#6f7a75',
+    lx: (hash(i, 7) - 0.5) * 1500,
+  }));
+  const lines = [
+    words(s, 'Markets are *noisy.*', '', { fontSize: '128px', color: FG }),
+    words(s, 'Signals *everywhere.*', '', { fontSize: '128px', color: FG }),
+    words(s, 'Orders without *discipline.*', '', { fontSize: '120px', color: FG }),
+    words(s, '*Precision* scales.', '', { fontSize: '150px', color: FG }),
+  ];
+  lines[0]._w[2].style.color = lines[1]._w[1].style.color = lines[2]._w[2].style.color = RED;
+  const counter = A(s, 'mono', ''); Object.assign(counter.style, { fontSize: '22px', color: DIM2, letterSpacing: '.14em' });
+  return { s, cv, ctx: c.getContext('2d'), pts, lines, counter, times: [0.15, 1.15, 2.15, 3.05] };
+}, (t, c) => {
+  const g = c.ctx; g.clearRect(0, 0, 1920, 1080);
+  const order = p01(t, 3.0, 3.6, E.inOutCubic), shrink = p01(t, 3.6, 3.95, E.inExpo);
+  const density = clamp(0.25 + t * 0.35);
+  c.pts.forEach((p, i) => {
+    if (i / c.pts.length > density) return;
+    const nx = ((p.x + t * p.sp + 1050) % 2100) - 1050;
+    const ny = p.y + Math.sin(t * 3 + p.ph) * 18;
+    const x = nx + (p.lx * (1 - shrink) - nx) * order, y = ny * (1 - order);
+    const flick = hash(i, Math.floor(t * 24)) > 0.25 ? 1 : 0.3;
+    g.globalAlpha = (0.55 * flick) * (1 - order) + order * 0.9;
+    g.fillStyle = order > 0.5 ? G : p.col;
+    g.fillRect(960 + x, 540 + y, p.w * (1 - order) + 3 * order, 2 + order);
+  });
+  g.globalAlpha = 1;
+  set(c.cv, { o: 1 - p01(t, 3.85, 4.0) });
+  c.lines.forEach((d, i) => {
+    const t0 = c.times[i], t1 = i < 3 ? c.times[i + 1] - 0.05 : 3.9;
+    const out = p01(t, t1 - 0.22, t1, E.inCubic);
+    rise(d, t, t0, 0.06, 0.7, 90);
+    set(d, { y: (i === 3 ? -150 : 0) - out * 90, o: (t >= t0 - 0.01 ? 1 : 0) * (1 - out), blur: out * 14 });
+  });
+  c.counter.textContent = t < 3.0 ? `${Math.round(clamp(t / 2.9) * 32000).toLocaleString('en-US')} ORDERS / SESSION` : '300 ORDERS / SESSION';
+  set(c.counter, { y: 430, o: p01(t, 0.3, 0.6) * (1 - p01(t, 3.6, 3.9)) });
+  c.counter.style.color = t < 3.0 ? DIM2 : G;
+});
+
+// ============ S2 — Logo reveal =============================================
+addScene(4, 8, () => {
+  const s = scene('#050605', true);
+  const rings = [0, 1, 2].map(() => { const d = A(s); Object.assign(d.style, { width: '230px', height: '230px', border: `2px solid ${G}` }); return d; });
+  const mark = logoMark(s, 210);
+  const word = left(charBox(s, 'GIDEON', 'lgw', { fontSize: '150px' }));
+  const tag = A(s, 'mono', ''); Object.assign(tag.style, { fontSize: '26px', letterSpacing: '.3em', color: DIM, whiteSpace: 'pre' });
+  const status = A(s, 'mono', `<span class="dot"></span>&nbsp; CME-CERTIFIED — ILINK / MDP &nbsp;&nbsp;·&nbsp;&nbsp; DELAWARE LLC · U.S. REGULATED MARKETS`);
+  Object.assign(status.style, { fontSize: '18px', letterSpacing: '.16em', color: DIM2, whiteSpace: 'nowrap' });
+  return { s, rings, mark, word, tag, status };
+}, (t, c) => {
+  c.s.style.clipPath = t < 4.45 ? `circle(${r(t, 3.82, 4.45, 0, 1250, E.inOutCubic).toFixed(1)}px at 50% 50%)` : 'none';
+  drawMark(c.mark, p01(t, 4.05, 4.65, E.inOutCubic), p01(t, 4.45, 5.1));
+  const slide = p01(t, 5.25, 6.0, E.outExpo);
+  const lift = p01(t, 6.2, 7.0, E.outExpo);
+  const ww = c.word.offsetWidth, ms = 210 * (1 - slide * 0.24), gap = 50;
+  const total = ms + gap + ww;
+  set(c.mark, { x: slide * (-total / 2 + ms / 2), y: -lift * 70, s: (1 - slide * 0.24) * (0.8 + 0.2 * pop(t, 4.05, 0.9)) });
+  scrambleChars(c.word, t, 5.35, 0.09, 0.3);
+  set(c.word, { x: -total / 2 + ms + gap - 12, y: -lift * 70 + 6 });
+  c.rings.forEach((d, i) => {
+    const p = p01(t, 4.6 + i * 0.16, 5.7 + i * 0.16, E.outCubic);
+    set(d, { s: 0.9 + p * 2.4, o: (p > 0 && p < 1) ? (1 - p) * 0.4 : 0 });
+  });
+  c.tag.textContent = decode('INSTITUTIONAL DERIVATIVES TRADING MIDDLEWARE', t, 6.3, 0.9);
+  set(c.tag, { y: 120, o: visible(t, 6.3) });
+  set(c.status, { y: 420, o: p01(t, 6.9, 7.3) });
+});
+
+// ============ S3 — Hero: the live execution log =============================
+const LOG = [
+  [['09:31:02.148 ', 'tm'], ['SIG ', 'tg'], ['tradingview.webhook ', ''], ['ES BUY 3', 'dm']],
+  [['09:31:02.149 ', 'tm'], ['RISK ', 'tg'], ['position-limit OK · loss-floor OK · rate OK', '']],
+  [['09:31:02.151 ', 'tm'], ['FIX ', 'tg'], ['35=D → CME iLink ', ''], ['ESU6 · 3 @ LMT 5012.25', 'dm']],
+  [['09:31:02.163 ', 'tm'], ['FILL ', 'tg'], ['3 @ 5012.25 ', ''], ['ack 12ms · slippage 0.00', 'dm']],
+  [['09:31:02.163 ', 'tm'], ['LOG ', 'tg'], ['audit #88231 sealed ', ''], ['retained 7y · export-ready', 'dm']],
+  [['09:31:04.002 ', 'tm'], ['SIG ', 'tg'], ['collective2.feed ', ''], ['NQ SELL 1', 'dm']],
+  [['09:31:04.003 ', 'tm'], ['RISK ', 'tg'], ['daily-loss floor breach → ', ''], ['REDUCE-ONLY MODE', 'am']],
+  [['09:31:04.003 ', 'tm'], ['KILL ', 'tg rd'], ['tier-2 engaged — risk-increasing orders blocked', '']],
+];
+function typeLine(elm, segs, n, caret) {
+  let out = '', left = n;
+  for (const [txt, cls] of segs) {
+    if (left <= 0) break;
+    out += `<span class="${cls}">${txt.slice(0, left)}</span>`;
+    left -= txt.length;
+  }
+  elm.innerHTML = out + (caret ? '<span class="caret"></span>' : '');
+}
+addScene(8, 13, () => {
+  const s = scene(bg(50, 70, 0.12), true);
+  const h1 = words(s, 'Your strategy decides.', '', { fontSize: '124px', color: FG });
+  const h2 = words(s, 'GIDEON *executes.*', '', { fontSize: '124px', color: FG });
+  const term = A(s, 'term');
+  term.innerHTML = `<div class="term-h"><i></i><i></i><i></i><span>gideon-core — execution log</span><b><span class="dot"></span> LIVE</b></div><div class="term-b"></div>`;
+  const body = term.querySelector('.term-b');
+  const rows = LOG.map(() => el('div', 'ln', body));
+  const note = A(s, 'mono', 'REPRESENTATIVE FLOW — NOT LIVE MARKET DATA'); Object.assign(note.style, { fontSize: '15px', letterSpacing: '.18em', color: DIM2 });
+  return { s, h1, h2, term, rows, note };
+}, (t, c) => {
+  rise(c.h1, t, 8.1, 0.06, 0.8); rise(c.h2, t, 8.35, 0.08, 0.8);
+  const up = p01(t, 8.95, 9.6, E.inOutExpo);
+  const push = p01(t, 11.4, 12.95, E.inOutCubic);
+  set(c.h1, { y: -80 - up * 360 - push * 80, s: 1 - up * 0.45, o: visible(t, 8.1) * (1 - push * 1.5) });
+  set(c.h2, { y: 60 - up * 380 - push * 80, s: 1 - up * 0.45, o: visible(t, 8.35) * (1 - push * 1.5) });
+  const tin = p01(t, 9.0, 9.9, E.outExpo);
+  set(c.term, { y: 80 + (1 - tin) * 700 - push * 40, rx: (1 - tin) * 35, s: 1 + push * 0.14 + (t - 9) * 0.006 });
+  c.rows.forEach((row, i) => {
+    const t0 = 9.35 + i * 0.37;
+    const len = LOG[i].reduce((a, [x]) => a + x.length, 0);
+    const n = Math.floor(clamp((t - t0) / 0.3) * len);
+    const last = i === c.rows.length - 1 || t < 9.35 + (i + 1) * 0.37;
+    typeLine(row, LOG[i], n, t >= t0 && last && (n < len || Math.floor(t * 2.5) % 2 === 0));
+    row.style.opacity = t >= t0 ? 1 : 0;
+  });
+  const kill = p01(t, 11.95, 12.3);
+  c.term.style.boxShadow = `0 60px 120px -40px rgba(0,0,0,.9), 0 0 0 1px rgba(${kill > 0 ? '240,96,93' : '255,255,255'},${kill > 0 ? 0.25 + 0.4 * (1 - kill) : 0.1}), 0 0 ${80 * (1 - kill) * (kill > 0 ? 1 : 0)}px rgba(240,96,93,.4)`;
+  set(c.note, { y: 430 + push * 60, o: p01(t, 10.0, 10.4) * (1 - push) });
+});
+
+// ============ S4 — How it works: signal → risk gate → CME ===================
+function bez(p0, p1, p2, p3, u) {
+  const v = 1 - u;
+  return [v * v * v * p0[0] + 3 * v * v * u * p1[0] + 3 * v * u * u * p2[0] + u * u * u * p3[0],
+          v * v * v * p0[1] + 3 * v * v * u * p1[1] + 3 * v * u * u * p2[1] + u * u * u * p3[1]];
+}
+addScene(13, 18, () => {
+  const s = scene(bg(50, 55, 0.08), true);
+  const kick = kicker(s, '01 // HOW IT WORKS');
+  const head = words(s, 'From signal to CME in *three governed steps.*', '', { fontSize: '68px', color: FG });
+  const SY = [-225, -75, 75, 225];
+  const srcP = SY.map(y => [[-530, y], [-330, y], [-340, 0], [-170, 0]]);
+  const exP = [[170, 0], [300, 0], [350, 0], [480, 0]];
+  const svg = A(s); svg.innerHTML = `<svg width="1920" height="1080" viewBox="-960 -540 1920 1080">${srcP.map(p => `<path class="lk" d="M${p[0]} C${p[1]} ${p[2]} ${p[3]}" pathLength="1"/>`).join('')}<path class="lk ex" d="M170,0 H480" pathLength="1"/></svg>`;
+  const links = [...svg.querySelectorAll('path')];
+  const srcs = ['TradingView', 'Collective2', 'Telegram', 'CTA feeds'].map((n, i) => A(s, 'node src', `<i>${'TCTF'[i]}</i>${n}`));
+  const gate = A(s, 'node gate', `<div class="gh"><span class="lgs">G</span>GIDEON</div><div class="gk">RISK GATE</div><div class="gc">position-limit <b>✓</b></div><div class="gc">loss-floor <b>✓</b></div><div class="gc">rate <b>✓</b></div>`);
+  const cme = A(s, 'node cme', `<div class="gh">CME Globex</div><div class="gk">CBOT · CME · COMEX · NYMEX</div><div class="gc">iLink · order entry</div><div class="gc">MDP · market data</div>`);
+  const via = A(s, 'mono', 'via Rithmic · CQG · TT'); Object.assign(via.style, { fontSize: '19px', color: DIM, letterSpacing: '.06em', whiteSpace: 'nowrap' });
+  const steps = [['STEP 01 — CONNECT', 'Signal sources, one stream'], ['STEP 02 — GOVERN', 'Every order risk-checked'], ['STEP 03 — EXECUTE', 'Routed to CME, fully audited']]
+    .map(([a, b]) => A(s, 'stepl', `<div>${a}</div><span>${b}</span>`));
+  const PK = [[14.5, 0], [14.8, 2], [15.1, 1], [15.4, 3], [15.7, 0], [16.0, 2, 1], [16.3, 1], [16.6, 3], [16.9, 0], [17.2, 2]];
+  const packets = PK.map(() => A(s, 'pk'));
+  const burst = A(s, 'burst'); const blocked = A(s, 'blk', '✕ BLOCKED — loss-floor');
+  return { s, kick, head, svg, links, srcs, SY, srcP, exP, gate, cme, via, steps, PK, packets, burst, blocked };
+}, (t, c) => {
+  set(c.kick, { y: -470, o: p01(t, 13.05, 13.3) });
+  rise(c.head, t, 13.1, 0.05, 0.8); set(c.head, { y: -395, o: visible(t, 13.1) });
+  set(c.svg, {});
+  c.links.forEach((p, i) => p.setAttribute('stroke-dashoffset', (1 - p01(t, 13.6 + i * 0.06, 14.3 + i * 0.06, E.inOutCubic)).toFixed(4)));
+  c.srcs.forEach((d, i) => { const a = pop(t, 13.35 + i * 0.1, 0.7); set(d, { x: -650, y: c.SY[i], s: a, o: Math.min(1, a * 2) }); });
+  let glow = 0;
+  const gA = pop(t, 13.5, 0.8), cA = pop(t, 13.8, 0.8);
+  c.PK.forEach(([t0, src, bad], k) => {
+    const d = c.packets[k]; const u = t - t0;
+    if (u < 0 || u > 1.05) { d.style.opacity = 0; return; }
+    let x, y, col = G, o = 1;
+    if (u < 0.45) [x, y] = bez(...c.srcP[src], E.inOutCubic(u / 0.45));
+    else if (bad) { [x, y] = [-170, 0]; col = RED; o = 1 - clamp((u - 0.45) / 0.2); }
+    else if (u < 0.6) { x = -170 + 340 * (u - 0.45) / 0.15; y = 0; glow = Math.max(glow, 1 - Math.abs(u - 0.525) / 0.075); }
+    else { const q = E.inOutCubic(clamp((u - 0.6) / 0.4)); x = 170 + 310 * q; y = 0; o = q > 0.97 ? 1 - (q - 0.97) / 0.03 : 1; }
+    d.style.background = col; d.style.boxShadow = `0 0 18px ${col}`;
+    set(d, { x, y, o });
+  });
+  set(c.gate, { s: gA * (1 + glow * 0.03), o: Math.min(1, gA * 2) });
+  c.gate.style.boxShadow = `0 0 ${(20 + glow * 60).toFixed(0)}px rgba(63,214,143,${(0.12 + glow * 0.35).toFixed(3)}), 0 40px 80px -30px rgba(0,0,0,.8)`;
+  set(c.cme, { x: 650, s: cA, o: Math.min(1, cA * 2) });
+  set(c.via, { x: 325, y: -34, o: p01(t, 14.2, 14.6) });
+  const bt = 16.45, bp = p01(t, bt, bt + 0.6, E.outCubic);
+  set(c.burst, { x: -170, s: 0.3 + bp * 3, o: bp > 0 && bp < 1 ? 1 - bp : 0 });
+  const ba = pop(t, bt, 0.6);
+  set(c.blocked, { x: -170, y: -165, s: ba, o: Math.min(1, ba * 2) * (1 - p01(t, bt + 1.1, bt + 1.4)) });
+  c.steps.forEach((d, i) => { const a = p01(t, 14.0 + i * 0.3, 14.8 + i * 0.3, E.outExpo); set(d, { x: (i - 1) * 650, y: 365 + (1 - a) * 40, o: a }); });
+});
+
+// ============ S5 — Four-tier kill switch ====================================
+addScene(18, 23, () => {
+  const s = scene(bg(50, 30, 0.06), true);
+  const tint = A(s); Object.assign(tint.style, { width: '1920px', height: '1080px', background: 'radial-gradient(ellipse at 50% 60%, rgba(240,96,93,.35), transparent 65%)' });
+  const kick = kicker(s, '02 // RISK MANAGEMENT');
+  const head = words(s, 'Four-tier kill switch. *Enforced in code.*', '', { fontSize: '76px', color: FG });
+  const tiers = [['01', 'Pause', 'Stop new signals', G], ['02', 'Reduce', 'Risk-reducing orders only', AMB], ['03', 'Flatten', 'Orderly liquidation to flat', ORG], ['04', 'Emergency Stop', 'Sever connectivity', RED]];
+  const track = A(s, 'track', '<i></i>');
+  const cards = tiers.map(([n, name, desc, col]) => {
+    const d = A(s, 'tier', `<div class="tn">TIER ${n}</div><div class="tt">${name}</div><div class="td">${desc}</div><div class="ts">ARMED</div>`);
+    d._col = col; d._st = d.querySelector('.ts'); return d;
+  });
+  const foot = A(s, 'mono', 'AUTOMATIC TRIGGERS · PRE-DECIDED ACTIONS · PRE-TRADE · MODELED ON SEC RULE 15c3-5');
+  Object.assign(foot.style, { fontSize: '19px', letterSpacing: '.16em', color: DIM, whiteSpace: 'nowrap' });
+  return { s, tint, kick, head, track, foot, fill: track.querySelector('i'), cards, T: [19.0, 19.75, 20.5, 21.25] };
+}, (t, c) => {
+  set(c.kick, { y: -450, o: p01(t, 18.05, 18.3) });
+  rise(c.head, t, 18.1, 0.05, 0.8); set(c.head, { y: -370, o: visible(t, 18.1) });
+  const lvl = c.T.filter(x => t >= x).length;
+  set(c.tint, { o: [0, 0.05, 0.15, 0.3, 0.55][lvl] + (lvl === 4 ? Math.max(0, 1 - (t - 21.25) / 0.4) * 0.4 : 0) });
+  const shake = t > 21.25 && t < 21.6 ? Math.sin(t * 150) * 12 * (1 - (t - 21.25) / 0.35) : 0;
+  set(c.track, { x: shake, y: -175, o: p01(t, 18.4, 18.8) });
+  const prog = c.T.reduce((a, x, i) => a + p01(t, x - 0.15, x + 0.1, E.inOutCubic) * (i === 0 ? 0 : 1), 0) / 3;
+  c.fill.style.width = (prog * 100).toFixed(2) + '%';
+  c.fill.style.background = [G, G, AMB, ORG, RED][lvl];
+  c.cards.forEach((d, i) => {
+    const a = p01(t, 18.3 + i * 0.1, 18.9 + i * 0.1, E.outExpo);
+    const on = t >= c.T[i], k = on ? E.spring(clamp((t - c.T[i]) / 0.6)) : 0;
+    const col = d._col;
+    set(d, { x: (i - 1.5) * 455 + shake, y: 55 + (1 - a) * 120, o: a * (on ? 1 : 0.5), s: 1 + (on ? (1 - k) * 0.12 : 0) });
+    d.style.borderColor = on ? col : 'rgba(255,255,255,.1)';
+    d.style.background = on ? `linear-gradient(180deg, ${col}26, ${col}08)` : '#0E1210';
+    d.style.boxShadow = on ? `0 0 60px -10px ${col}88` : 'none';
+    d.querySelector('.tn').style.color = on ? col : DIM2;
+    d._st.textContent = on ? 'ENGAGED' : 'ARMED';
+    d._st.style.color = on ? col : DIM2;
+  });
+  set(c.foot, { y: 360, o: p01(t, 21.6, 22.0) });
+});
+
+// ============ S6 — Audit trail + data ownership ============================
+addScene(23, 30, () => {
+  const s = scene(bg(75, 45, 0.09), true);
+  const k1 = left(kicker(s, '03 // AUDIT TRAIL'));
+  const a1 = left(words(s, 'Every event,', '', { fontSize: '104px', color: FG }));
+  const a2 = left(words(s, '*sealed.*', '', { fontSize: '120px', color: FG }));
+  const p1 = left(A(s, 'para', '7-year, immutable, NFA-aligned recordkeeping. Every order lifecycle reconstructable, message by message.'));
+  const k2 = left(kicker(s, 'DATA EXPORT & OWNERSHIP'));
+  const b1 = left(words(s, 'Your data', '', { fontSize: '104px', color: FG }));
+  const b2 = left(words(s, 'is *yours.*', '', { fontSize: '120px', color: FG }));
+  const p2 = left(A(s, 'para', 'CSV, JSON and SQL export at any time, including the full 7-year audit log. Zero lock-in, by design.'));
+  const stack = A(s, 'stack');
+  stack.innerHTML = `<div class="sh">AUDIT LOG <span>· IMMUTABLE · RETAINED 7Y</span></div>` + [
+    ['#88231', 'ACK', '35=8 · ESU6 · 3 @ LMT 5012.25'], ['#88232', 'FILL', '3 @ 5012.25 · ack 12ms'], ['#88233', 'SIG', 'collective2.feed · NQ SELL 1'],
+    ['#88234', 'RISK', 'daily-loss floor breach → reduce-only'], ['#88235', 'CANCEL', '35=F · risk-increasing order'], ['#88236', 'KILL', 'tier-2 engaged'],
+  ].map(([id, ty, tx]) => `<div class="rec"><span class="id">${id}</span><b>${ty}</b><span class="tx">${tx}</span><span class="seal">${LOCK(G)}SEALED</span></div>`).join('');
+  const recs = [...stack.querySelectorAll('.rec')];
+  const files = [['CSV', 'audit_log.csv'], ['JSON', 'orders.json'], ['SQL', 'gideon_export.sql']].map(([a, b]) => A(s, 'file', `<div class="fx">${a}</div><div class="fn">${b}</div><div class="fb"><i></i></div><div class="fs">EXPORTING</div>`));
+  return { s, k1, a1, a2, p1, k2, b1, b2, p2, stack, recs, files };
+}, (t, c) => {
+  const X = -860, sw = p01(t, 26.2, 26.7, E.inOutCubic);
+  set(c.k1, { x: X, y: -330 - sw * 40, o: p01(t, 23.05, 23.3) * (1 - sw) });
+  rise(c.a1, t, 23.15); set(c.a1, { x: X, y: -230 - sw * 40, o: visible(t, 23.15) * (1 - sw) });
+  rise(c.a2, t, 23.45); set(c.a2, { x: X, y: -110 - sw * 40, o: visible(t, 23.45) * (1 - sw) });
+  set(c.p1, { x: X, y: 60 - sw * 40, o: p01(t, 23.9, 24.4) * (1 - sw) });
+  const on2 = t >= 26.55;
+  set(c.k2, { x: X, y: -330, o: p01(t, 26.55, 26.8) });
+  rise(c.b1, t, 26.6); set(c.b1, { x: X, y: -230, o: visible(t, 26.6) });
+  rise(c.b2, t, 26.85); set(c.b2, { x: X, y: -110, o: visible(t, 26.85) });
+  set(c.p2, { x: X, y: 60, o: on2 ? p01(t, 27.2, 27.7) : 0 });
+  const si = p01(t, 23.1, 23.9, E.outExpo);
+  const shrink = p01(t, 26.6, 27.3, E.inOutExpo);
+  set(c.stack, { x: 470 + (1 - si) * 700, y: -20 - shrink * 130, s: 1 - shrink * 0.2, ry: (1 - si) * -20 });
+  c.recs.forEach((d, i) => {
+    const t0 = 23.55 + i * 0.36, a = p01(t, t0, t0 + 0.4, E.outExpo), sealed = t >= t0 + 0.3;
+    d.style.opacity = a; d.style.transform = `translateX(${((1 - a) * 60).toFixed(1)}px)`;
+    d.classList.toggle('on', sealed);
+    const sl = d.querySelector('.seal'); const k = sealed ? E.spring(clamp((t - t0 - 0.3) / 0.5)) : 0;
+    sl.style.opacity = k > 0 ? 1 : 0; sl.style.transform = `scale(${(1.6 - 0.6 * k).toFixed(3)})`;
+  });
+  c.files.forEach((d, i) => {
+    const t0 = 27.1 + i * 0.2, a = pop(t, t0, 0.8), fp = p01(t, t0 + 0.4, t0 + 1.3, E.inOutCubic);
+    set(d, { x: 470 + (i - 1) * 300 * a, y: 60 + a * 300, s: 0.4 + 0.6 * a, o: Math.min(1, a * 2) });
+    d.querySelector('.fb i').style.width = (fp * 100).toFixed(1) + '%';
+    const st = d.querySelector('.fs'); st.textContent = fp >= 1 ? '✓ EXPORTED' : 'EXPORTING'; st.style.color = fp >= 1 ? G : DIM2;
+  });
+});
+
+// ============ S7 — The platform, straight from gideon.systems ==============
+addScene(30, 35, () => {
+  const s = scene(bg(50, 60, 0.1), true);
+  const head = words(s, 'Six pillars. *One disciplined layer.*', '', { fontSize: '64px', color: FG });
+  const bw = A(s, 'browser');
+  bw.innerHTML = `<div class="bh"><i></i><i></i><i></i><div class="url">${LOCK(DIM)}gideon.systems</div></div><div class="bv"><img src="assets/site/full.webp"></div>`;
+  const page = bw.querySelector('.bv img');
+  const pills = ['Signal Aggregation', 'Order Routing', 'Risk Management', 'Audit Trail', 'Data Export', 'Assistive AI · optional'].map(n => A(s, 'gp', `<i></i>${n}`));
+  return { s, head, bw, page, pills };
+}, (t, c) => {
+  rise(c.head, t, 30.1, 0.05, 0.8); set(c.head, { y: -460, o: visible(t, 30.1) });
+  const a = p01(t, 30.0, 30.9, E.outExpo);
+  set(c.bw, { y: 70 + (1 - a) * 800, rx: (1 - a) * 30, s: 0.96 + (t - 30) * 0.008 });
+  // scroll stops at section tops (site px × 1120/1440)
+  const stops = [0, 582, 1659, 2234, 2809, 3246];
+  let y = 0;
+  [30.75, 31.5, 32.25, 33.0, 33.75].forEach((tt, i) => { y += (stops[i + 1] - stops[i]) * p01(t, tt, tt + 0.55, E.inOutExpo); });
+  c.page.style.transform = `translateY(${(-y).toFixed(1)}px)`;
+  c.pills.forEach((d, i) => {
+    const side = i < 3 ? -1 : 1, row = i % 3;
+    const pa = pop(t, 30.9 + i * 0.22, 0.8);
+    set(d, { x: side * 760, y: -170 + row * 200 + Math.sin(t * 1.3 + i) * 6, s: pa, o: Math.min(1, pa * 2) });
+  });
+});
+
+// ============ S8 — Compliance by design ====================================
+addScene(35, 39, () => {
+  const s = scene(bg(30, 50, 0.08), true);
+  const kick = kicker(s, '04 // COMPLIANCE');
+  const head = words(s, 'Compliance *by design.*', '', { fontSize: '96px', color: FG });
+  const tiles = [['CFTC', 'U.S. commodity derivatives regulatory framework.'], ['NFA', 'Recordkeeping and audit-trail architecture.'], ['CME GROUP', 'Licensed data: CBOT, CME, COMEX, NYMEX.'], ['SEC 15c3-5', 'Pre-trade controls modeled on the market-access rule.']]
+    .map(([a, b]) => A(s, 'ctile', `<div class="ck">${a}<b>✓</b></div><div class="cx">${b}</div>`));
+  const not = A(s, 'isnot', `<div class="nh">✕ GIDEON IS NOT</div>` + ['An advisor or fund manager', 'A counterparty to any trade', 'A custodian of client funds', 'A signal generator'].map(x => `<div class="ni"><b>✕</b><span>${x}</span></div>`).join(''));
+  return { s, kick, head, tiles, not, items: [...not.querySelectorAll('.ni')] };
+}, (t, c) => {
+  set(c.kick, { y: -440, o: p01(t, 35.05, 35.3) });
+  rise(c.head, t, 35.1, 0.06, 0.8); set(c.head, { y: -350, o: visible(t, 35.1) });
+  c.tiles.forEach((d, i) => {
+    const a = pop(t, 35.35 + i * 0.13, 0.8);
+    set(d, { x: -700 + (i % 2) * 450, y: -85 + Math.floor(i / 2) * 230, s: a, o: Math.min(1, a * 2) });
+    const ck = d.querySelector('.ck b'), k = pop(t, 36.2 + i * 0.12, 0.5);
+    ck.style.transform = `scale(${k.toFixed(3)})`;
+  });
+  const na = p01(t, 35.9, 36.5, E.outExpo);
+  set(c.not, { x: 470 + (1 - na) * 120, y: 30, o: na });
+  c.items.forEach((d, i) => {
+    const t0 = 36.6 + i * 0.32;
+    d.style.opacity = t >= t0 ? 1 : 0.15;
+    d.style.setProperty('--st', (p01(t, t0 + 0.1, t0 + 0.4, E.inOutCubic) * 100).toFixed(1) + '%');
+    d.querySelector('b').style.transform = `scale(${pop(t, t0, 0.5).toFixed(3)})`;
+  });
+});
+
+// ============ S9 — Proof (brand green) =====================================
+addScene(39, 43, () => {
+  const s = scene(`linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px) 0 0/64px 64px, linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px) 0 0/64px 64px, ${G}`);
+  const num = A(s, 'big');
+  const sub = words(s, 'precise orders outperform *32,000 noisy ones.*', '', { fontSize: '60px', color: '#0A0C0B', fontWeight: 500 });
+  sub._w.forEach(w => { if (w.classList.contains('it')) { w.style.color = '#0A0C0B'; w.style.opacity = 0.55; } });
+  const stats = [['73,226', 'LINES OF PRODUCTION CODE'], ['4+ YRS', 'ENGINEERING, PRE-LAUNCH'], ['iLink / MDP', 'CME-CERTIFIED EXECUTION STACK']]
+    .map(([v, l]) => A(s, 'gstat', `<strong>${v}</strong><small>${l}</small>`));
+  const edge = A(s, 'mono', 'EXECUTION DISCIPLINE IS THE EDGE.'); Object.assign(edge.style, { fontSize: '24px', letterSpacing: '.24em', color: '#0A0C0B', fontWeight: 600 });
+  return { s, num, sub, stats, edge };
+}, (t, c) => {
+  c.num.textContent = Math.round(r(t, 39.1, 40.4, 0, 300, E.outExpo));
+  const mv = p01(t, 40.7, 41.4, E.inOutExpo);
+  set(c.num, { y: -70 - mv * 260, s: (0.9 + p01(t, 39.05, 39.6, E.outExpo) * 0.1) * (1 - mv * 0.5), o: p01(t, 39.05, 39.3) });
+  rise(c.sub, t, 39.5, 0.06, 0.8);
+  set(c.sub, { y: 150 - mv * 300, s: 1 - mv * 0.2, o: visible(t, 39.5) });
+  c.stats.forEach((d, i) => { const a = p01(t, 41.0 + i * 0.18, 41.8 + i * 0.18, E.outExpo); set(d, { x: (i - 1) * 580, y: 150 + (1 - a) * 80, o: a, blur: (1 - a) * 10 }); });
+  set(c.edge, { y: 400, o: p01(t, 41.8, 42.2) });
+});
+
+// ============ S10 — Outro / CTA ============================================
+addScene(43, 48, () => {
+  const s = scene(bg(50, 45, 0.14), true);
+  const mark = logoMark(s, 96);
+  const word = left(A(s, 'lgw', 'GIDEON')); word.style.fontSize = '68px';
+  const head = words(s, 'Beta onboarding *is open.*', '', { fontSize: '112px', color: FG });
+  const who = A(s, 'mono', 'FOR FCMs · REGISTERED CTAs · PROFESSIONAL DERIVATIVES DESKS'); Object.assign(who.style, { fontSize: '22px', letterSpacing: '.18em', color: DIM, whiteSpace: 'nowrap' });
+  const btn = A(s, 'cta', 'REQUEST ACCESS →');
+  const ripple = A(s); Object.assign(ripple.style, { width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(63,214,143,.35)' });
+  const url = A(s, 'mono', `<span style="color:${FG}">gideon.systems</span> &nbsp;·&nbsp; from $49/mo &nbsp;·&nbsp; no lock-in`); Object.assign(url.style, { fontSize: '28px', color: DIM, whiteSpace: 'nowrap', letterSpacing: '.04em' });
+  const cur = A(s, '', CURSOR('#0A0C0B')); cur.querySelector('svg').style.cssText = 'width:54px;height:54px';
+  const fine = A(s, 'fine', 'GIDEON Systems LLC provides neutral trading middleware. GIDEON does not provide investment advice, does not manage client funds, does not act as a counterparty to any trade, and does not generate trading signals.<br>Trading derivatives involves substantial risk of loss and is not suitable for all investors. Rithmic, CQG and Trading Technologies are trademarks of their respective owners.');
+  return { s, mark, word, head, who, btn, ripple, url, cur, fine };
+}, (t, c) => {
+  const la = pop(t, 43.05, 0.9);
+  drawMark(c.mark, p01(t, 43.0, 43.5, E.inOutCubic), p01(t, 43.3, 43.8));
+  const ww = c.word.offsetWidth, total = 96 + 32 + ww;
+  set(c.mark, { x: -total / 2 + 48, y: -265, s: 0.8 + la * 0.2 });
+  set(c.word, { x: -total / 2 + 128 - 8, y: -262, o: p01(t, 43.3, 43.7) });
+  c.word.style.letterSpacing = `${(0.16 + (1 - p01(t, 43.3, 44.2, E.outExpo)) * 0.25).toFixed(3)}em`;
+  rise(c.head, t, 43.45, 0.07, 0.9);
+  set(c.head, { y: -95, o: visible(t, 43.45) });
+  set(c.who, { y: 20, o: p01(t, 43.9, 44.3) });
+  const ba = pop(t, 44.1, 0.8);
+  const click = t > 45.55 ? 1 - 0.07 * Math.sin(clamp((t - 45.55) / 0.3) * Math.PI) : 1;
+  set(c.btn, { y: 145, s: ba * click, o: Math.min(1, ba * 2) });
+  set(c.url, { y: 255, o: p01(t, 44.4, 44.9), blur: (1 - p01(t, 44.4, 45.0, E.outExpo)) * 6 });
+  const mv = p01(t, 44.55, 45.5, E.inOutCubic);
+  set(c.cur, { x: 760 - mv * 620 + 20, y: 520 - mv * 355 + 20, o: p01(t, 44.5, 44.7) * (1 - p01(t, 46.6, 47.0)) });
+  c.cur.querySelector('path').setAttribute('fill', '#E6EAE7'); c.cur.querySelector('path').setAttribute('stroke', '#0A0C0B');
+  const rp = p01(t, 45.6, 46.3, E.outCubic);
+  set(c.ripple, { x: 160, y: 165, s: 0.2 + rp * 4.5, o: rp > 0 && rp < 1 ? (1 - rp) * 0.9 : 0 });
+  set(c.fine, { y: 455, o: p01(t, 45.0, 45.6) });
+});
+
+// ---------------------------------------------------------------------------
+// Scene compositor: outgoing scene zooms/blurs away, incoming scales in.
+// ---------------------------------------------------------------------------
+const OUT = 0.34, IN = 0.42;
+window.render = function (t) {
+  SCENES.forEach((sc, i) => {
+    const s = sc.ctx.s;
+    const first = i === 0, last = i === SCENES.length - 1;
+    const on = t >= sc.start - (first ? 0 : 0.18) && t < sc.end + (last ? 1 : OUT);
+    s.style.visibility = on ? 'visible' : 'hidden';
+    if (!on) return;
+    sc.update(t, sc.ctx);
+    const outP = last ? 0 : p01(t, sc.end - 0.12, sc.end + OUT, E.inCubic);
+    const inP = first || i === 1 ? 1 : p01(t, sc.start - 0.18, sc.start + IN, E.outExpo);
+    const sOut = 1 + outP * 0.16, sIn = 0.9 + inP * 0.1;
+    s.style.transform = `scale(${(sOut * sIn).toFixed(4)})`;
+    s.style.opacity = (first || i === 1 ? 1 : clamp(inP * 1.8)).toFixed(3);
+    s.style.filter = outP > 0.01 ? `blur(${(outP * 18).toFixed(2)}px)` : 'none';
+    s.style.zIndex = String(i);
+  });
+};
+window.DURATION = DURATION;
+window.ready = (async () => {
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i => i.decode().catch(() => console.warn('img fail', i.src))));
+  return true;
+})();
+// Live preview when opened in a browser: ?t=12.5 freezes a frame, otherwise it plays.
+const qs = new URLSearchParams(location.search);
+if (!navigator.webdriver) {
+  if (qs.has('t')) window.render(parseFloat(qs.get('t')));
+  else { const t0 = performance.now(); const loop = () => { window.render(((performance.now() - t0) / 1000) % DURATION); requestAnimationFrame(loop); }; loop(); }
+}
+</script>
+</body>
+</html>
