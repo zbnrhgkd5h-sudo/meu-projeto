@@ -1,0 +1,13 @@
+{
+  "name": "formata-launch-film",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "node render.mjs --preview",
+    "music": "python3 music.py",
+    "render": "node render.mjs --video formata-launch.mp4 --fps 60 --workers 4 --audio music.wav"
+  },
+  "dependencies": {
+    "playwright": "1.56.1"
+  }
+}
