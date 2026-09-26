@@ -1,0 +1,579 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Formata Energia Film</title>
+<style>
+@font-face{font-family:Inter;font-weight:400;src:url(assets/fonts/inter-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:500;src:url(assets/fonts/inter-latin-500-normal.woff2)}
+@font-face{font-family:Inter;font-weight:600;src:url(assets/fonts/inter-latin-600-normal.woff2)}
+@font-face{font-family:Inter;font-weight:700;src:url(assets/fonts/inter-latin-700-normal.woff2)}
+@font-face{font-family:Inter;font-weight:800;src:url(assets/fonts/inter-latin-800-normal.woff2)}
+@font-face{font-family:Serif;font-style:normal;src:url(assets/fonts/instrument-serif-latin-400-normal.woff2)}
+@font-face{font-family:Serif;font-style:italic;src:url(assets/fonts/instrument-serif-latin-400-italic.woff2)}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:Inter,sans-serif;color:#191919;-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;overflow:hidden;visibility:hidden;perspective:2200px;transform-origin:50% 50%}
+.a{position:absolute;left:50%;top:50%;transform-style:preserve-3d}
+.win{border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 50px 100px -30px rgba(15,15,15,.35),0 18px 36px -18px rgba(15,15,15,.25),0 0 0 1px rgba(15,15,15,.07)}
+.win img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left}
+.h{font-weight:700;letter-spacing:-0.045em;line-height:1.04;white-space:nowrap}
+.it{font-family:Serif;font-style:italic;font-weight:400;letter-spacing:-0.015em}
+.w{display:inline-block;white-space:pre}
+.chip{display:inline-flex;align-items:center;gap:14px;font-size:26px;font-weight:600;letter-spacing:-0.01em;padding:12px 24px 12px 14px;border-radius:999px;background:rgba(25,25,25,.06);white-space:nowrap}
+.chip b{display:inline-flex;align-items:center;justify-content:center;height:34px;min-width:52px;padding:0 10px;border-radius:999px;background:#191919;color:#fff;font-size:18px;font-weight:700;letter-spacing:.02em}
+.dark .chip{background:rgba(255,255,255,.1);color:#fff}
+.dark .chip b{background:#fff;color:#111}
+.pill{display:flex;align-items:center;gap:14px;background:#fff;border-radius:999px;padding:16px 28px 16px 18px;font-size:30px;font-weight:600;letter-spacing:-0.02em;white-space:nowrap;box-shadow:0 20px 40px -12px rgba(0,0,0,.22),0 0 0 1px rgba(0,0,0,.05)}
+.pill i{width:40px;height:40px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center}
+.pill i svg{width:24px;height:24px}
+.para{font-size:30px;line-height:1.45;color:#6b6b6b;font-weight:500;letter-spacing:-0.01em;width:660px}
+.tile{width:108px;height:108px;border-radius:28px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 36px -12px rgba(0,0,0,.2),0 0 0 1px rgba(0,0,0,.05)}
+.tile img{width:80px;height:80px;object-fit:contain}
+.toast{display:flex;align-items:center;gap:18px;width:560px;height:80px;padding:0 24px;background:#fff;border-radius:18px;font-size:25px;font-weight:600;letter-spacing:-0.015em;box-shadow:0 20px 40px -14px rgba(120,50,10,.28),0 0 0 1px rgba(0,0,0,.04);white-space:nowrap}
+.toast .ck{width:40px;height:40px;border-radius:50%;background:#2DA44E;display:flex;align-items:center;justify-content:center;flex:none}
+.toast span{color:#8a8a8a;font-weight:500}
+.cursor{width:40px;height:40px}
+.tag{position:absolute;left:30px;top:32px;padding:6px 14px;border-radius:10px;color:#fff;font-size:20px;font-weight:600;white-space:nowrap}
+.marquee{display:flex;align-items:center;gap:130px;white-space:nowrap}
+.marquee img{height:54px;width:auto;filter:brightness(0) invert(1);opacity:.9}
+.alert{display:flex;align-items:center;gap:16px;padding:14px 28px;border-radius:999px;background:rgba(225,37,27,.16);border:1.5px solid rgba(225,37,27,.7);color:#ff6b61;font-size:26px;font-weight:700;letter-spacing:.14em;white-space:nowrap}
+.alert i{width:14px;height:14px;border-radius:50%;background:#ff3b30;box-shadow:0 0 18px #ff3b30}
+.prod img{display:block;-webkit-box-reflect:below 2px linear-gradient(transparent 70%,rgba(0,0,0,.18));filter:drop-shadow(0 30px 30px rgba(0,0,0,.25))}
+.tagp{background:#fff;border-radius:999px;padding:14px 26px;font-size:28px;font-weight:600;letter-spacing:-0.02em;white-space:nowrap;box-shadow:0 18px 36px -12px rgba(0,0,0,.22),0 0 0 1px rgba(0,0,0,.05)}
+.tagp::before{content:"";display:inline-block;width:12px;height:12px;border-radius:50%;background:#E1251B;margin-right:14px;vertical-align:middle;position:relative;top:-3px}
+.pcard{width:600px;height:620px;border-radius:32px;background:#fff;box-shadow:0 50px 90px -30px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.05);display:flex;flex-direction:column;align-items:center;padding:40px 40px 44px}
+.pcard .ph{flex:1;display:flex;align-items:center;justify-content:center;width:100%;background:radial-gradient(ellipse at 50% 85%,rgba(0,0,0,.08),transparent 60%)}
+.pcard .ph img{max-width:480px;display:block;filter:drop-shadow(0 24px 22px rgba(0,0,0,.25))}
+.pcard .nm{font-size:40px;font-weight:700;letter-spacing:-0.035em;margin-top:18px;white-space:nowrap}
+.pcard .sp{font-size:26px;font-weight:600;color:#E1251B;margin-top:8px;white-space:nowrap}
+.panel{width:1420px;height:520px;border-radius:32px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);box-shadow:0 60px 120px -40px rgba(0,0,0,.8);display:grid;grid-template-columns:900px 1fr;grid-template-rows:1fr 1fr;padding:34px 40px;gap:10px 40px;color:#fff}
+.panel .row{grid-column:1;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid rgba(255,255,255,.08)}
+.panel .row:nth-child(2){border-bottom:0}
+.panel .lab{display:flex;align-items:center;gap:18px;font-size:28px;font-weight:600;letter-spacing:-0.02em}
+.st{font-size:18px;font-weight:800;letter-spacing:.12em;padding:6px 14px;border-radius:8px}
+.st.ok{background:rgba(53,208,127,.16);color:#35d07f}.st.bad{background:rgba(225,37,27,.25);color:#ff5a4f}
+.panel .side{grid-column:2;grid-row:1/3;display:flex;flex-direction:column;justify-content:space-around;border-left:1px solid rgba(255,255,255,.08);padding-left:40px}
+.panel small{display:block;font-size:22px;color:#9a9a9a;font-weight:500}
+.panel strong{display:block;font-size:56px;font-weight:800;letter-spacing:-0.04em}
+.panel strong.load{font-size:30px;font-weight:600;letter-spacing:-0.02em}
+.panel .bar{width:340px;height:10px;border-radius:5px;background:rgba(255,255,255,.1);margin-top:10px}
+.panel .bar i{display:block;height:100%;border-radius:5px;background:#35d07f}
+.nowin{background:transparent;box-shadow:none;border-radius:0}
+.nowin img{object-fit:contain}
+.egcard{background:#fff;border-radius:28px;padding:22px 34px;box-shadow:0 30px 60px -20px rgba(120,20,10,.35)}
+.egcard img{height:190px;display:block}
+.stat{text-align:center;color:#fff;width:460px}
+.stat strong{display:flex;align-items:center;justify-content:center;height:120px;font-size:96px;font-weight:800;letter-spacing:-0.05em}
+.stat strong img{height:120px;background:#fff;border-radius:18px;padding:8px 18px}
+.stat small{display:block;margin-top:14px;font-size:30px;color:#9a9a9a;font-weight:500}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+// ---------------------------------------------------------------------------
+// Tiny deterministic motion engine: every frame is a pure function of time t.
+// ---------------------------------------------------------------------------
+const E = {
+  lin: x => x,
+  outCubic: x => 1 - Math.pow(1 - x, 3),
+  inCubic: x => x * x * x,
+  inOutCubic: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+  outExpo: x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x),
+  inExpo: x => x <= 0 ? 0 : Math.pow(2, 10 * x - 10),
+  inOutExpo: x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2,
+  outQuint: x => 1 - Math.pow(1 - x, 5),
+  outBack: x => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
+  spring: x => x >= 1 ? 1 : 1 - Math.exp(-6.5 * x) * Math.cos(11 * x),
+};
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+// ramp from a to b between t0 and t1
+const r = (t, t0, t1, a, b, e = E.outExpo) => t <= t0 ? a : t >= t1 ? b : a + (b - a) * e((t - t0) / (t1 - t0));
+const p01 = (t, t0, t1, e = E.lin) => r(t, t0, t1, 0, 1, e);
+
+const $stage = document.getElementById('stage');
+function el(tag, cls, parent, html) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  (parent || $stage).appendChild(e);
+  return e;
+}
+// centred absolute element
+function A(parent, cls, html) { return el('div', 'a ' + (cls || ''), parent, html); }
+function img(parent, src, cls) { const i = el('img', cls, parent); i.src = src; return i; }
+function win(parent, src, w, h, pos) {
+  const d = A(parent, 'win'); d.style.width = w + 'px'; d.style.height = h + 'px';
+  const i = img(d, src); if (pos) i.style.objectPosition = pos; return d;
+}
+// Words wrapped in *...* are set in the italic serif.
+function words(parent, text, cls, style) {
+  const d = A(parent, 'h ' + (cls || ''));
+  if (style) Object.assign(d.style, style);
+  let italic = false;
+  text.split(' ').forEach((w, i, arr) => {
+    let s = w;
+    const start = s.startsWith('*'); if (start) { italic = true; s = s.slice(1); }
+    const end = s.endsWith('*'); if (end) s = s.slice(0, -1);
+    const sp = el('span', 'w' + (italic ? ' it' : ''), d, s + (i < arr.length - 1 ? ' ' : ''));
+    if (end) italic = false;
+  });
+  d._w = [...d.querySelectorAll('.w')];
+  return d;
+}
+function set(e, p) {
+  let tr = e._anchor === 'left' ? 'translate(0,-50%)' : 'translate(-50%,-50%)';
+  tr += ` translate3d(${(p.x || 0).toFixed(2)}px,${(p.y || 0).toFixed(2)}px,${(p.z || 0).toFixed(2)}px)`;
+  if (p.rx) tr += ` rotateX(${p.rx}deg)`;
+  if (p.ry) tr += ` rotateY(${p.ry}deg)`;
+  if (p.r) tr += ` rotate(${p.r}deg)`;
+  tr += ` scale(${p.s === undefined ? 1 : p.s})`;
+  e.style.transform = tr;
+  e.style.opacity = p.o === undefined ? 1 : clamp(p.o);
+  const f = [];
+  if (p.blur > 0.05) f.push(`blur(${p.blur.toFixed(2)}px)`);
+  if (p.bright !== undefined) f.push(`brightness(${p.bright})`);
+  e.style.filter = f.length ? f.join(' ') : 'none';
+}
+function left(e) { e._anchor = 'left'; e.style.left = '50%'; return e; }
+// staggered word rise with blur
+function rise(d, t, t0, stagger = 0.055, dur = 0.8, dist = 70) {
+  d._w.forEach((w, i) => {
+    const p = clamp((t - t0 - i * stagger) / dur);
+    const e = E.outExpo(p);
+    w.style.transform = `translateY(${((1 - e) * dist).toFixed(2)}px)`;
+    w.style.opacity = clamp(p * 3);
+    w.style.filter = p < 1 ? `blur(${((1 - e) * 12).toFixed(2)}px)` : 'none';
+  });
+}
+const pop = (t, t0, dur = 0.7) => r(t, t0, t0 + dur, 0, 1, E.spring);
+const visible = (t, t0) => t >= t0 ? 1 : 0;
+
+const I = n => `assets/img/${n}`;
+const CHECK = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const CURSOR = c => `<svg class="cursor" viewBox="0 0 24 24"><path d="M4 2.5l15.5 9.2-6.6 1.6-3.4 6.2z" fill="${c}" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+const ICON = {
+  agent: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 13h.01M15 13h.01"/></svg>',
+  task: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  mic: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>',
+  cal: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>',
+  bolt: '<svg viewBox="0 0 100 100"><polygon points="45.7,0 65.4,0 51.9,15.4 78.4,15.4 51.9,45.7 78.4,45.7 19.8,100 46.3,57.4 19.1,57.4 46.3,27.8 19.1,27.2" fill="#fff"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  tool: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7z"/></svg>',
+};
+function pill(parent, label, color, icon) {
+  return A(parent, 'pill', `<i style="background:${color}">${ICON[icon]}</i>${label}`);
+}
+function scene(bg, dark) {
+  const s = el('div', 'scene' + (dark ? ' dark' : ''));
+  s.style.background = bg; return s;
+}
+
+// ---------------------------------------------------------------------------
+// Timeline (120 BPM → one beat = 0.5s). Scene boundaries land on bar lines.
+// ---------------------------------------------------------------------------
+const SCENES = [];
+function addScene(start, end, build, update) {
+  SCENES.push({ start, end, ctx: build(), update });
+}
+const DURATION = 48;
+const RED = '#E1251B';
+
+// Formata logo, redrawn as vector from the original so it stays sharp at 1080p
+// and so its strokes can be drawn on. viewBox 1240×250.
+const BOLT = '45.7,0 65.4,0 51.9,15.4 78.4,15.4 51.9,45.7 78.4,45.7 19.8,100 46.3,57.4 19.1,57.4 46.3,27.8 19.1,27.2';
+function boltSVG(size) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 100 100" style="display:block"><rect width="100" height="100" fill="${RED}"/><polygon points="${BOLT}" fill="#fff"/></svg>`;
+}
+function logoSVG(width) {
+  const c = [185, 297, 459, 591, 763, 915, 1047];
+  const L = [
+    `M${c[0] + 7},145 V32 H${c[0] + 92} M${c[0] + 7},86 H${c[0] + 80}`,
+    `M${c[1] + 70},32 a63,53 0 1,0 0.01,0 Z`,
+    `M${c[2] + 7},145 V32 H${c[2] + 72} a30,30 0 0 1 0,60 H${c[2] + 7} M${c[2] + 62},92 L${c[2] + 112},145`,
+    `M${c[3] + 7},145 V28 L${c[3] + 75},112 L${c[3] + 143},28 V145`,
+    `M${c[4]},145 L${c[4] + 65},27 L${c[4] + 130},145`,
+    `M${c[5]},32 H${c[5] + 112} M${c[5] + 56},32 V145`,
+    `M${c[6]},145 L${c[6] + 65},27 L${c[6] + 130},145`,
+  ];
+  return `<svg class="logo" width="${width}" viewBox="0 0 1240 250" style="display:block;overflow:visible">
+    <g class="ic"><rect x="0" y="20" width="150" height="150" fill="${RED}"/><polygon transform="translate(0,20) scale(1.5)" points="${BOLT}" fill="#fff"/></g>
+    ${L.map(d => `<path class="lt" d="${d}" pathLength="1" fill="none" stroke="#3b3b3b" stroke-width="15" stroke-linejoin="miter" stroke-dasharray="1 1"/>`).join('')}
+    <path class="ln" d="M175,131 H1190 q34,0 34,24 t-34,24 H1172 M1172,170 v18" pathLength="1" fill="none" stroke="${RED}" stroke-width="5" stroke-dasharray="1 1"/>
+    <text class="tg" x="1150" y="228" text-anchor="end" fill="${RED}" font-family="Inter" font-weight="500" font-size="44" letter-spacing="-0.5">soluções em energia e tecnologia</text>
+  </svg>`;
+}
+// p ∈ [0,1] draws the logo on: icon, letters, red line, tagline.
+function drawLogo(root, p, iconT = null) {
+  const lts = root.querySelectorAll('.lt');
+  lts.forEach((e, i) => e.setAttribute('stroke-dashoffset', (1 - clamp((p - i * 0.07) / 0.45)).toFixed(4)));
+  root.querySelector('.ln').setAttribute('stroke-dashoffset', (1 - clamp((p - 0.45) / 0.4)).toFixed(4));
+  root.querySelector('.tg').style.opacity = clamp((p - 0.75) / 0.25);
+  if (iconT) root.querySelector('.ic').setAttribute('transform', iconT);
+}
+function productCard(parent, src, name, spec, h) {
+  const d = A(parent, 'pcard');
+  d.innerHTML = `<div class="ph"><img src="${I(src)}" style="max-height:${h}px"></div><div class="nm">${name}</div><div class="sp">${spec}</div>`;
+  return d;
+}
+
+// ============ S1 — Cold open: the outage ===================================
+addScene(0, 4, () => {
+  const s = scene('#050505', true);
+  const bg = A(s); Object.assign(bg.style, { width: '1920px', height: '1080px' });
+  img(bg, I('banner_ultrassom.jpg')).style.cssText = 'width:100%;height:100%;object-fit:cover;display:block';
+  const shade = A(s); Object.assign(shade.style, { width: '1920px', height: '1080px', background: 'radial-gradient(ellipse at 50% 50%, rgba(0,0,0,.55), rgba(0,0,0,.92))' });
+  const wave = A(s); wave.innerHTML = '<svg width="1920" height="300" viewBox="0 0 1920 300"><path fill="none" stroke-width="5" stroke-linecap="round"/></svg>';
+  const wp = wave.querySelector('path');
+  const alert = A(s, 'alert', '<i></i>FALHA NA REDE ELÉTRICA');
+  const lines = [
+    words(s, 'A energia *caiu.*', '', { fontSize: '132px', color: '#fff' }),
+    words(s, 'O exame *parou.*', '', { fontSize: '132px', color: '#fff' }),
+    words(s, 'O servidor *desligou.*', '', { fontSize: '132px', color: '#fff' }),
+    words(s, 'Quanto custa *um segundo?*', '', { fontSize: '140px', color: '#fff' }),
+  ];
+  lines.forEach(l => l._w.forEach(w => { if (w.classList.contains('it')) w.style.color = '#ff5a4f'; }));
+  return { s, bg, shade, wave, wp, alert, lines, times: [0.15, 1.15, 2.15, 3.05] };
+}, (t, c) => {
+  // lights: on, flicker around 0.5–0.9 s, then dark with brief re-flickers
+  const fl = t < 0.45 ? 1 : t < 0.95 ? (Math.sin(t * 90) > 0.2 ? 0.9 : 0.15) : (Math.sin(t * 37) > 0.97 ? 0.3 : 0.08);
+  set(c.bg, { s: 1.05 + t * 0.02, o: 0.85, bright: fl * 0.55 });
+  set(c.shade, {});
+  // mains waveform: healthy sine that collapses to a flat red line
+  const amp = t < 0.5 ? 90 : t < 0.95 ? 90 * (0.95 - t) / 0.45 * (Math.sin(t * 70) > 0 ? 1 : 0.4) : 0;
+  let d = 'M0,150';
+  for (let x = 0; x <= 1920; x += 12) {
+    const jitter = t > 0.95 ? Math.sin(x * 0.3 + t * 40) * Math.max(0, 1 - (t - 0.95) * 4) * 10 : 0;
+    d += ` L${x},${(150 + Math.sin(x / 1920 * Math.PI * 8 - t * 12) * amp + jitter).toFixed(1)}`;
+  }
+  c.wp.setAttribute('d', d);
+  c.wp.setAttribute('stroke', t < 0.95 ? '#35d07f' : RED);
+  set(c.wave, { y: 300, o: 0.85 * (1 - p01(t, 3.4, 3.8)) });
+  set(c.alert, { y: -390, o: t < 0.95 ? 0 : (Math.floor(t * 4) % 2 ? 1 : 0.45) * (1 - p01(t, 3.4, 3.8)), s: pop(t, 0.95, 0.5) });
+  const collapse = p01(t, 3.45, 3.95, E.inExpo);
+  c.lines.forEach((dd, i) => {
+    const t0 = c.times[i], t1 = i < 3 ? c.times[i + 1] - 0.05 : 3.9;
+    const out = p01(t, t1 - 0.22, t1, E.inCubic);
+    rise(dd, t, t0, 0.06, 0.7, 90);
+    set(dd, { y: -out * 90, o: (t >= t0 - 0.01 ? 1 : 0) * (1 - out), blur: out * 14, s: i === 3 ? 1 + collapse * 0.25 : 1 });
+  });
+});
+
+// ============ S2 — Logo reveal =============================================
+addScene(4, 8, () => {
+  const s = scene('#ffffff');
+  const rings = [0, 1, 2].map(() => { const d = A(s); Object.assign(d.style, { width: '260px', height: '260px', borderRadius: '8px', border: `4px solid ${RED}` }); return d; });
+  const logo = A(s, '', logoSVG(1400));
+  const tag = words(s, '27 anos de *energia garantida.*', '', { fontSize: '64px', fontWeight: 500, color: '#555', letterSpacing: '-0.035em' });
+  return { s, rings, logo, tag };
+}, (t, c) => {
+  c.s.style.clipPath = t < 4.45 ? `circle(${r(t, 3.82, 4.45, 0, 1250, E.inOutCubic).toFixed(1)}px at 50% 50%)` : 'none';
+  const a = pop(t, 4.15, 0.9);
+  const slide = p01(t, 5.3, 6.1, E.outExpo);
+  const lift = p01(t, 6.3, 7.1, E.outExpo);
+  // icon starts centred on screen at 1.9× and settles into its place in the lockup
+  const k = 1400 / 1240; // px per viewBox unit
+  const cx = 75, cy = 95, sx = 620 - cx, sy = 125 - cy; // offset from icon centre to svg centre
+  const sc = (1.9 - 0.9 * slide) * a;
+  const tr = `translate(${(sx * (1 - slide)).toFixed(2)},${(sy * (1 - slide)).toFixed(2)}) translate(${cx},${cy}) scale(${sc.toFixed(4)}) rotate(${((1 - a) * -30).toFixed(2)}) translate(${-cx},${-cy})`;
+  drawLogo(c.logo, p01(t, 5.35, 6.6, E.inOutCubic), tr);
+  set(c.logo, { y: -lift * 80, s: 1 - lift * 0.1 });
+  c.rings.forEach((d, i) => {
+    const p = p01(t, 4.3 + i * 0.16, 5.4 + i * 0.16, E.outCubic);
+    set(d, { r: 45 * p, s: 0.7 + p * 2.6, o: (p > 0 && p < 1) ? (1 - p) * 0.5 : 0 });
+  });
+  rise(c.tag, t, 6.45, 0.07, 0.8, 50);
+  set(c.tag, { y: 150, o: visible(t, 6.45) });
+  c._k = k;
+});
+
+// ============ S3 — Hero: the product line on stage =========================
+addScene(8, 13, () => {
+  const s = scene('radial-gradient(ellipse at 50% 30%, #ffffff 0%, #ececec 70%, #dcdcdc 100%)');
+  const floor = A(s); Object.assign(floor.style, { width: '2400px', height: '420px', background: 'linear-gradient(180deg, rgba(0,0,0,.07), rgba(0,0,0,0))', borderTop: '1px solid rgba(0,0,0,.08)' });
+  const head = words(s, 'Energia que *não para.*', '', { fontSize: '112px' });
+  const prods = [['volt.png', 250, -760], ['dwtt.png', 460, -380], ['dwmm.png', 390, 110], ['compacta.png', 330, 520], ['safeserver.png', 230, 830]]
+    .map(([f, h, x], i) => { const d = A(s, 'prod'); const im = img(d, I(f)); im.style.height = h + 'px'; return { d, h, x, t0: 8.35 + i * 0.16 }; });
+  const pills = [
+    pill(s, 'Monofásicos', RED, 'bolt'), pill(s, 'Trifásicos', '#191919', 'bolt'),
+    pill(s, 'Área médica', '#2383E2', 'plus'), pill(s, 'Suporte 7×24', '#2DA44E', 'tool'),
+  ];
+  const pp = [[-640, -150], [700, -170], [-560, 380], [660, 390]];
+  return { s, floor, head, prods, pills, pp };
+}, (t, c) => {
+  const push = p01(t, 11.2, 12.95, E.inOutCubic);
+  rise(c.head, t, 8.1, 0.07, 0.9, 80);
+  set(c.head, { y: -385 - push * 120, o: 1 - push * 1.4 });
+  const base = 330; // floor line (product bottoms)
+  set(c.floor, { y: base + 210 + push * 150 });
+  c.prods.forEach((p, i) => {
+    const a = p01(t, p.t0, p.t0 + 0.9, E.outExpo);
+    const drift = (t - 8) * (i - 2) * 3;
+    set(p.d, { x: (p.x + drift) * (1 + push * 0.5), y: base - p.h / 2 + (1 - a) * 260 + push * 150, s: 1 + push * 0.5, o: Math.min(1, a * 2.5) });
+  });
+  c.pills.forEach((d, i) => {
+    const a = pop(t, 9.6 + i * 0.28, 0.8);
+    const [x, y] = c.pp[i];
+    set(d, { x: x + Math.sin((t + i) * 1.3) * 6, y: y + Math.cos((t + i) * 1.1) * 8, s: a, o: Math.min(1, a * 2) * (1 - push * 2) });
+  });
+});
+
+// ============ S4 — Medical ==================================================
+addScene(13, 18, () => {
+  const s = scene('#F6F6F5');
+  const chip = left(A(s, 'chip', '<b>01</b>Área médica'));
+  const l1 = left(words(s, 'Ultrassom.', '', { fontSize: '112px' }));
+  const l2 = left(words(s, 'Ressonância.', '', { fontSize: '112px' }));
+  const l3 = left(words(s, '*Tomógrafo.*', '', { fontSize: '130px', color: RED }));
+  const para = left(A(s, 'para', 'No-breaks homologados pelos principais fabricantes de equipamentos médicos.'));
+  const main = win(s, I('banner_ultrassom.jpg'), 1040, 600, '70% 50%');
+  const set2 = win(s, I('medical_set.jpg'), 560, 381);
+  const us = win(s, I('ultrassom.jpg'), 380, 317);
+  const tags = ['Raio X', 'Mamógrafo', 'Respiradores', 'Freezer de vacinas', 'Arco cirúrgico'].map(n => A(s, 'tagp', n));
+  return { s, chip, lines: [l1, l2, l3], para, main, set2, us, tags };
+}, (t, c) => {
+  const X = -860;
+  set(c.chip, { x: X, y: -290, o: p01(t, 13.1, 13.4), blur: (1 - p01(t, 13.1, 13.6, E.outExpo)) * 8 });
+  [-165, -40, 95].forEach((y, i) => { rise(c.lines[i], t, 13.3 + i * 0.5, 0.06, 0.8); set(c.lines[i], { x: X, y, o: visible(t, 13.3 + i * 0.5) }); });
+  set(c.para, { x: X, y: 250, o: p01(t, 14.6, 15.1), blur: (1 - p01(t, 14.6, 15.2, E.outExpo)) * 8 });
+  const inn = p01(t, 13.15, 14.2, E.outExpo);
+  const drift = (t - 13) * 6;
+  set(c.main, { x: 1500 - inn * 1080 - drift, y: -40, ry: -26 + inn * 12 });
+  const a1 = pop(t, 14.2, 0.8), a2 = pop(t, 14.7, 0.8);
+  set(c.set2, { x: 200 - drift * 1.4, y: 290, s: a1, o: Math.min(1, a1 * 2) });
+  set(c.us, { x: 780 - drift * 1.6, y: -300, s: a2, o: Math.min(1, a2 * 2) });
+  const tp = [[520, 330], [760, 170], [700, 420], [360, -380], [180, -250]];
+  c.tags.forEach((d, i) => {
+    const a = pop(t, 15.2 + i * 0.3, 0.7);
+    set(d, { x: tp[i][0] - drift * 1.2, y: tp[i][1] + Math.sin(t * 1.5 + i) * 6, s: a, o: Math.min(1, a * 2) });
+  });
+});
+
+// ============ S5 — Product line carousel ===================================
+addScene(18, 23, () => {
+  const s = scene('linear-gradient(180deg,#f4f4f4 0%,#e2e2e2 100%)');
+  s.style.perspective = '2600px';
+  const chip = A(s, 'chip', '<b>02</b>No-breaks');
+  const head = words(s, 'De 0,7 a *825 kVA.*', '', { fontSize: '108px' });
+  const items = [
+    ['volt.png', 'Volt', 'Monofásico · 0,7 / 1,4 kVA', 300],
+    ['safeserver.png', 'SafeServer Power', '1,2 a 6 kVA', 250],
+    ['compacta.png', 'Linha Compacta', '1 a 5 kVA', 300],
+    ['dwmm.png', 'Double Way Monofásico', '3 a 20 kVA', 310],
+    ['modular.png', 'DWMM Modular', '6 / 10 kVA', 200],
+    ['dwtt.png', 'Double Way Trifásico', '10 a 825 kVA', 320],
+  ];
+  const cards = items.map(([f, n, sp, h]) => productCard(s, f, n, sp, h));
+  return { s, chip, head, cards };
+}, (t, c) => {
+  set(c.chip, { y: -455, o: p01(t, 18.05, 18.4), blur: (1 - p01(t, 18.05, 18.5, E.outExpo)) * 8 });
+  rise(c.head, t, 18.15, 0.07, 0.8);
+  set(c.head, { y: -350, o: visible(t, 18.15) });
+  let off = -3 + p01(t, 18.1, 19.0, E.outExpo) * 3;
+  [19.1, 19.8, 20.5, 21.2, 21.9].forEach(tt => { off += p01(t, tt, tt + 0.5, E.inOutExpo); });
+  off += p01(t, 22.4, 23.2, E.inCubic) * 0.3;
+  c.cards.forEach((d, i) => {
+    const p = i - off, ap = Math.abs(p);
+    set(d, {
+      x: p * 640, y: 120, z: -ap * 300, ry: -p * 24, s: 1 - Math.min(ap, 2) * 0.1,
+      o: 1 - clamp(ap - 1.4) * 1.2, bright: 1 - Math.min(ap, 1.5) * 0.12,
+    });
+    d.style.zIndex = String(100 - Math.round(ap * 10));
+  });
+});
+
+// ============ S6 — Double Way: outage simulation (dark) ====================
+addScene(23, 30, () => {
+  const s = scene('radial-gradient(ellipse at 50% 60%, #1d1d20 0%, #08080a 70%)', true);
+  const chip = A(s, 'chip', '<b>03</b>Tecnologia Double Way');
+  const head = words(s, 'Queda de energia? *Zero interrupção.*', '', { fontSize: '84px', color: '#fff' });
+  const panel = A(s, 'panel');
+  panel.innerHTML = `
+    <div class="row"><div class="lab">Rede elétrica<b class="st st1">NORMAL</b></div><svg class="wv" width="820" height="130" viewBox="0 0 820 130"><path class="p1" fill="none" stroke-width="4"/></svg></div>
+    <div class="row"><div class="lab">Saída do no-break<b class="st ok">ESTÁVEL</b></div><svg class="wv" width="820" height="130" viewBox="0 0 820 130"><path class="p2" fill="none" stroke="#35d07f" stroke-width="4"/></svg></div>
+    <div class="side">
+      <div><small>Tempo de transferência</small><strong>0 ms</strong></div>
+      <div><small>Bateria</small><strong class="bat">100%</strong><div class="bar"><i></i></div></div>
+      <div><small>Carga protegida</small><strong class="load">Ultrassom · Sala 3</strong></div>
+    </div>`;
+  const q = sel => panel.querySelector(sel);
+  const sw = win(s, I('software.png'), 560, 330); sw.classList.add('nowin');
+  const wb = win(s, I('wbrc.jpg'), 360, 360);
+  const l1 = A(s, 'pill', `<i style="background:${RED}">${ICON.spark}</i>Monitoramento remoto · IoT`);
+  const l2 = A(s, 'pill', `<i style="background:#191919">${ICON.task}</i>Software de gerenciamento`);
+  return { s, chip, head, panel, p1: q('.p1'), p2: q('.p2'), st1: q('.st1'), bat: q('.bat'), bar: q('.bar i'), sw, wb, l1, l2 };
+}, (t, c) => {
+  set(c.chip, { y: -440, o: p01(t, 23.05, 23.4) });
+  rise(c.head, t, 23.15, 0.06, 0.9, 80);
+  set(c.head, { y: -345, o: visible(t, 23.15) });
+  const fail = 25.0;
+  const shake = t > fail && t < fail + 0.35 ? Math.sin(t * 160) * 14 * (1 - (t - fail) / 0.35) : 0;
+  const pin = pop(t, 23.5, 0.9);
+  const side = p01(t, 27.0, 27.8, E.inOutExpo);
+  set(c.panel, { x: shake - side * 360, y: 120 + (1 - pin) * 80, s: (0.92 + pin * 0.08) * (1 - side * 0.2), o: Math.min(1, pin * 2) });
+  const wave = (ampFn, col) => {
+    let d = '';
+    for (let x = 0; x <= 820; x += 6) d += (x ? ' L' : 'M') + x + ',' + (65 + Math.sin(x / 820 * Math.PI * 6 - t * 9) * ampFn(x)).toFixed(1);
+    return d;
+  };
+  // mains: fails at `fail` (flat, red, with a glitch burst)
+  c.p1.setAttribute('d', wave(x => t < fail ? 42 : (t < fail + 0.25 ? 42 * Math.sin(x * 0.9 + t * 80) * 0.6 : 0)));
+  c.p1.setAttribute('stroke', t < fail ? '#35d07f' : RED);
+  c.st1.textContent = t < fail ? 'NORMAL' : 'FALHA';
+  c.st1.className = 'st st1 ' + (t < fail ? 'ok' : 'bad');
+  c.p2.setAttribute('d', wave(() => 42));
+  const b = Math.round(100 - clamp((t - fail) / 5) * 4);
+  c.bat.textContent = b + '%';
+  c.bar.style.width = b + '%';
+  c.s.style.boxShadow = t > fail && t < fail + 0.5 ? `inset 0 0 ${(1 - (t - fail) / 0.5) * 260}px rgba(225,37,27,.7)` : 'none';
+  const a1 = pop(t, 27.5, 0.9), a2 = pop(t, 27.9, 0.9);
+  set(c.sw, { x: 610, y: 10, s: a1, o: Math.min(1, a1 * 2) });
+  set(c.wb, { x: 740, y: 320, s: a2, o: Math.min(1, a2 * 2), r: (1 - a2) * -8 });
+  const la = pop(t, 28.3, 0.8), lb = pop(t, 28.6, 0.8);
+  set(c.l1, { x: 330, y: 420, s: la, o: Math.min(1, la * 2) });
+  set(c.l2, { x: 610, y: -250, s: lb, o: Math.min(1, lb * 2) });
+});
+
+// ============ S7 — Technical support =======================================
+addScene(30, 35, () => {
+  const s = scene('linear-gradient(135deg,#FFF3F1 0%,#FFD9D4 100%)');
+  const chip = left(A(s, 'chip', '<b>04</b>Assistência técnica'));
+  const l1 = left(words(s, 'Técnicos em campo,', '', { fontSize: '84px' }));
+  const l2 = left(words(s, '*24 horas por dia.*', '', { fontSize: '104px', color: RED }));
+  const para = left(A(s, 'para', 'Assistência autorizada Engetron, laboratório próprio e peças homologadas pelo fabricante.'));
+  para.style.width = '640px';
+  const w1 = win(s, I('assist.jpg'), 1000, 518);
+  const w2 = win(s, I('lineup.jpg'), 520, 308);
+  const eg = A(s, 'egcard'); img(eg, I('engetron.png'));
+  const toasts = [['Chamado aberto', 'atendimento 7×24'], ['Técnico em campo', 'no local do equipamento'], ['Energia restabelecida', 'sem parar o exame']]
+    .map(([a, b]) => left(A(s, 'toast', `<div class="ck">${CHECK}</div>${a} <span>${b}</span>`)));
+  return { s, chip, l1, l2, para, w1, w2, eg, toasts };
+}, (t, c) => {
+  const X = -860;
+  set(c.chip, { x: X, y: -330, o: p01(t, 30.1, 30.4) });
+  rise(c.l1, t, 30.2, 0.06); set(c.l1, { x: X, y: -215, o: visible(t, 30.2) });
+  rise(c.l2, t, 30.55, 0.06); set(c.l2, { x: X, y: -100, o: visible(t, 30.55) });
+  set(c.para, { x: X, y: 55, o: p01(t, 31.0, 31.5), blur: (1 - p01(t, 31.0, 31.6, E.outExpo)) * 8 });
+  const d = (t - 30);
+  const a1 = p01(t, 30.15, 31.1, E.outExpo);
+  set(c.w1, { x: 600 - d * 6, y: -60 + (1 - a1) * 900, rx: (1 - a1) * 30 });
+  const a2 = pop(t, 30.8, 0.8), a3 = pop(t, 31.2, 0.8);
+  set(c.w2, { x: 690 - d * 10, y: 300, s: a2, o: Math.min(1, a2 * 2) });
+  set(c.eg, { x: 250 - d * 9, y: -340, s: a3, o: Math.min(1, a3 * 2) });
+  c.toasts.forEach((e, i) => {
+    const a = p01(t, 31.9 + i * 0.45, 32.6 + i * 0.45, E.outExpo);
+    set(e, { x: X - (1 - a) * 300, y: 205 + i * 100, o: a * 1.5, blur: (1 - a) * 10 });
+  });
+});
+
+// ============ S8 — Mission-critical orbit ==================================
+addScene(35, 39, () => {
+  const s = scene('radial-gradient(circle, rgba(0,0,0,.09) 1.6px, transparent 1.8px) 0 0/44px 44px, #fff');
+  const head = words(s, 'Soluções para *missões críticas.*', '', { fontSize: '86px' });
+  const rings = [[270, 220], [600, 340]].map(([rx, ry]) => { const d = A(s); Object.assign(d.style, { width: rx * 2 + 'px', height: ry * 2 + 'px', borderRadius: '50%', border: '2px dashed rgba(0,0,0,.13)' }); return d; });
+  const core = A(s, '', boltSVG(150)); core.style.boxShadow = '0 30px 60px -15px rgba(225,37,27,.55)';
+  const inner = ['baterias.png', 'estabilizador.png', 'litio.png', 'selada.png'].map((f, i) => ({ el: (() => { const d = A(s, 'tile'); img(d, I(f)); return d; })(), rx: 270, ry: 220, a0: i * 90 + 30, dir: 1 }));
+  const outer = ['Hospitais', 'Data Center', 'Indústria', 'Telecom', 'Call Center', 'Bancos'].map((n, i) => ({ el: A(s, 'tagp', n), rx: 600, ry: 340, a0: i * 60 + 10, dir: -1 }));
+  return { s, head, rings, core, orbit: [...inner, ...outer] };
+}, (t, c) => {
+  rise(c.head, t, 35.1, 0.05, 0.8);
+  set(c.head, { y: -445, o: visible(t, 35.1) });
+  const cy = 95;
+  const la = pop(t, 35.15, 0.9);
+  set(c.core, { y: cy, s: la * (1 + Math.sin(t * 6) * 0.02) });
+  c.rings.forEach((d, i) => { const a = p01(t, 35.2 + i * 0.15, 36.0 + i * 0.15, E.outExpo); set(d, { y: cy, s: a, o: a }); });
+  c.orbit.forEach((o, i) => {
+    const a = p01(t, 35.35 + i * 0.07, 36.2 + i * 0.07, E.outExpo);
+    const ang = (o.a0 + (t - 35) * 14 * o.dir) * Math.PI / 180;
+    set(o.el, { x: Math.cos(ang) * o.rx * a, y: cy + Math.sin(ang) * o.ry * a, s: pop(t, 35.35 + i * 0.07, 0.8), o: a * 2 });
+  });
+});
+
+// ============ S9 — Proof (dark) ============================================
+addScene(39, 43, () => {
+  const s = scene('radial-gradient(ellipse at 50% 40%, #1e1e20 0%, #070707 70%)', true);
+  const num = A(s, 'h'); Object.assign(num.style, { fontSize: '340px', fontWeight: 800, color: '#fff', letterSpacing: '-0.065em' });
+  const sub = words(s, 'anos de *energia garantida.*', '', { fontSize: '72px', color: '#bdbdbd', fontWeight: 500 });
+  sub._w.forEach(w => { if (w.classList.contains('it')) w.style.color = '#ff5a4f'; });
+  const stats = [
+    ['825 kVA', 'potência máxima'], ['7×24', 'atendimento técnico'], ['<img src="' + I('engetron.png') + '">', 'representante exclusivo'],
+  ].map(([v, l]) => A(s, 'stat', `<strong>${v}</strong><small>${l}</small>`));
+  return { s, num, sub, stats };
+}, (t, c) => {
+  c.num.textContent = Math.round(r(t, 39.1, 40.5, 0, 27, E.outExpo));
+  const mv = p01(t, 40.7, 41.4, E.inOutExpo);
+  set(c.num, { y: -60 - mv * 250, s: (0.9 + p01(t, 39.05, 39.6, E.outExpo) * 0.1) * (1 - mv * 0.5), o: p01(t, 39.05, 39.3) });
+  rise(c.sub, t, 39.5, 0.07, 0.8);
+  set(c.sub, { y: 170 - mv * 300, s: 1 - mv * 0.2, o: visible(t, 39.5) });
+  c.stats.forEach((d, i) => {
+    const a = p01(t, 41.0 + i * 0.18, 41.8 + i * 0.18, E.outExpo);
+    set(d, { x: (i - 1) * 540, y: 170 + (1 - a) * 80, o: a, blur: (1 - a) * 10 });
+  });
+});
+
+// ============ S10 — Outro / CTA ============================================
+addScene(43, 48, () => {
+  const s = scene('#ffffff');
+  const logo = A(s, '', logoSVG(820));
+  const head = words(s, 'Proteja o que *não pode parar.*', '', { fontSize: '96px' });
+  const btn = A(s, '', 'Fale com um especialista'); Object.assign(btn.style, { background: RED, color: '#fff', fontSize: '38px', fontWeight: 600, letterSpacing: '-0.02em', padding: '28px 54px', borderRadius: '999px', whiteSpace: 'nowrap', boxShadow: '0 24px 50px -16px rgba(225,37,27,.6)' });
+  const ripple = A(s); Object.assign(ripple.style, { width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(225,37,27,.3)' });
+  const url = A(s, '', 'formataenergia.com.br &nbsp;·&nbsp; (11) 2098-3571'); Object.assign(url.style, { fontSize: '34px', fontWeight: 500, color: '#7a7a7a', letterSpacing: '-0.01em', whiteSpace: 'nowrap' });
+  const cur = A(s, '', CURSOR('#191919')); cur.querySelector('svg').style.cssText = 'width:54px;height:54px';
+  return { s, logo, head, btn, ripple, url, cur };
+}, (t, c) => {
+  const la = p01(t, 43.0, 43.6, E.outExpo);
+  drawLogo(c.logo, p01(t, 43.05, 44.0, E.inOutCubic), `translate(75,95) scale(${pop(t, 43.0, 0.8).toFixed(4)}) translate(-75,-95)`);
+  set(c.logo, { y: -250, s: 0.9 + la * 0.1 });
+  rise(c.head, t, 43.5, 0.07, 0.9);
+  set(c.head, { y: -30, o: visible(t, 43.5) });
+  const ba = pop(t, 44.1, 0.8);
+  const click = t > 45.55 ? 1 - 0.07 * Math.sin(clamp((t - 45.55) / 0.3) * Math.PI) : 1;
+  set(c.btn, { y: 150, s: ba * click, o: Math.min(1, ba * 2) });
+  set(c.url, { y: 270, o: p01(t, 44.4, 44.9), blur: (1 - p01(t, 44.4, 45.0, E.outExpo)) * 6 });
+  const mv = p01(t, 44.55, 45.5, E.inOutCubic);
+  set(c.cur, { x: 760 - mv * 600 + 20, y: 520 - mv * 345 + 20, o: p01(t, 44.5, 44.7) * (1 - p01(t, 46.6, 47.0)) });
+  const rp = p01(t, 45.6, 46.3, E.outCubic);
+  set(c.ripple, { x: 180, y: 175, s: 0.2 + rp * 4.5, o: rp > 0 && rp < 1 ? (1 - rp) * 0.9 : 0 });
+});
+
+// ---------------------------------------------------------------------------
+// Scene compositor: outgoing scene zooms/blurs away, incoming scales in.
+// ---------------------------------------------------------------------------
+const OUT = 0.34, IN = 0.42;
+window.render = function (t) {
+  SCENES.forEach((sc, i) => {
+    const s = sc.ctx.s;
+    const first = i === 0, last = i === SCENES.length - 1;
+    const on = t >= sc.start - (first ? 0 : 0.18) && t < sc.end + (last ? 1 : OUT);
+    s.style.visibility = on ? 'visible' : 'hidden';
+    if (!on) return;
+    sc.update(t, sc.ctx);
+    const outP = last ? 0 : p01(t, sc.end - 0.12, sc.end + OUT, E.inCubic);
+    const inP = first || i === 1 ? 1 : p01(t, sc.start - 0.18, sc.start + IN, E.outExpo);
+    const sOut = 1 + outP * 0.16, sIn = 0.9 + inP * 0.1;
+    s.style.transform = `scale(${(sOut * sIn).toFixed(4)})`;
+    s.style.opacity = (first || i === 1 ? 1 : clamp(inP * 1.8)).toFixed(3);
+    s.style.filter = outP > 0.01 ? `blur(${(outP * 18).toFixed(2)}px)` : 'none';
+    s.style.zIndex = String(i);
+  });
+};
+window.DURATION = DURATION;
+window.ready = (async () => {
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i => i.decode().catch(() => console.warn('img fail', i.src))));
+  return true;
+})();
+// Live preview when opened in a browser: ?t=12.5 freezes a frame, otherwise it plays.
+const qs = new URLSearchParams(location.search);
+if (!navigator.webdriver) {
+  if (qs.has('t')) window.render(parseFloat(qs.get('t')));
+  else { const t0 = performance.now(); const loop = () => { window.render(((performance.now() - t0) / 1000) % DURATION); requestAnimationFrame(loop); }; loop(); }
+}
+</script>
+</body>
+</html>
